@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-webfont@1.0.0/style.css" />
+
+<!--=============== REMIXICONS ===============-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
+
+<!--=============== SWIPER CSS ===============-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<!--=============== CSS ===============-->
+<link rel="stylesheet" href="assets/css/styles.css">
+
+<title>404 台灣生技與生物資訊人力資源</title>
+</head>
+
+<body>
+   <header class="header" id="header">
+      <nav class="nav container">
+         <a href="#" class="nav__logo">404 BioTech</a>
+
+         <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+               <li class="nav__item"><a href="#home" class="nav__link active-link">首頁</a></li>
+               <li class="nav__item"><a href="#companies" class="nav__link">公司名錄</a></li>
+               <li class="nav__item"><a href="#about" class="nav__link">關於我們</a></li>
+               <li class="nav__item"><a href="#contact" class="nav__link">聯絡資訊</a></li>
+
+               <a href="#contact" class="nav__link nav__button">聯繫諮詢</a>
+            </ul>
+
+            <!-- Close button -->
+            <div class="nav__close" id="nav-close">
+               <i class="ri-close-line"></i>
+            </div>
+         </div>
+
+         <div class="nav__actions">
+            <div class="filters">
+               <select id="locationFilter" class="filter__select">
+                  <option value="all">所有地點</option>
+               </select>
+            </div>
+
+            <!-- Toggle button -->
+            <div class="nav__toggle" id="nav-toggle">
+               <i class="ri-menu-line"></i>
+            </div>
+         </div>
+      </nav>
+   </header>
+
+   <main class="main">
+      <!--==================== HOME ====================-->
+      <section class="home section" id="home">
+         <div class="home__container container">
+            <h1 class="home__title">台灣生技與生資<br>人力資源平台</h1>
+            <p class="home__description">
+               匯集全台頂尖基因體、新藥研發及 CDMO 企業，打造生物科技人才與產業對接的最佳橋樑。
+            </p>
+            <a href="#companies" class="button">探索公司名錄</a>
+         </div>
+      </section>
+
+      <!--==================== COMPANIES ====================-->
+      <section class="section" id="companies">
+         <div class="container" id="cardContainer">
+            <!-- Dynamic Categories and Cards will be injected here -->
+         </div>
+      </section>
+
+      <!--==================== ABOUT ====================-->
+      <section class="about section" id="about">
+         <div class="about__container container grid">
+            <div class="about__data">
+               <h2 class="section__title">關於 404 生技平台</h2>
+               <p class="about__description">
+                  我們致力於整合台灣生物科技與生物資訊領域的產業資訊，提供求職者與企業透明、高效的對接平台。
+               </p>
+            </div>
+         </div>
+      </section>
+
+      <!--==================== CONTACT ====================-->
+      <section class="contact section" id="contact">
+         <div class="contact__container container grid">
+            <h2 class="section__title">聯絡我們</h2>
+            <div class="contact__content">
+               <p class="contact__text">有任何建議或合作需求？歡迎透過以下方式聯繫。</p>
+               <div class="contact__info">
+                  <p><i class="ri-mail-line"></i> 114025001@live.asia.edu.tw</p>
+                  <p><i class="ri-phone-line"></i> no number yet</p>
+               </div>
+            </div>
+         </div>
+      </section>
+   </main>
+
+   <!--========== SCROLL UP ==========-->
+   <a href="#" class="scrollup" id="scroll-up">
+      <i class="ri-arrow-up-line"></i>
+   </a>
+
+   <!--=============== SWIPER JS ===============-->
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+   <!--=============== GSAP JS ===============-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+   <!--=============== DATA JS ===============-->
+   <script src="./assets/js/data.js"></script>
+   <script src="./assets/js/renderCompanies.js"></script>
+
+   <!--=============== MAIN JS ===============-->
+   <script src="./assets/js/main.js"></script>
+</body>
+
+</html>

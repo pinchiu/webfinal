@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公司詳情 - 404 生技與生資</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-webfont@1.0.0/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .details {
+            padding-top: 8rem;
+            min-height: 100vh;
+            background-color: var(--body-color);
+        }
+        .details__container {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .details__img-wrapper {
+            position: sticky;
+            top: 8rem;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: var(--golden-shadow);
+        }
+        .details__img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+        }
+        .details__content {
+            background: var(--container-color);
+            padding: 3rem;
+            border-radius: 0;
+            border: none;
+            box-shadow: var(--golden-shadow);
+        }
+        .details__category {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .details__name {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--black-color);
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+        .details__section {
+            margin-bottom: 2.5rem;
+        }
+        .details__section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            column-gap: 0.75rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .details__text {
+            color: var(--text-color-light);
+            line-height: 1.6;
+        }
+        .details__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .details__card {
+            background: hsla(0, 0%, 100%, 0.4);
+            padding: 1.5rem;
+            border-radius: 0;
+            border: 1px solid hsla(0, 0%, 0%, 0.05);
+        }
+        .details__card-label {
+            font-size: var(--small-font-size);
+            color: var(--text-color-light);
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .details__card-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--black-color);
+        }
+        .back-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+            background: var(--black-color);
+            color: var(--white-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            transition: transform 0.3s, background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .back-btn:hover {
+            transform: translateX(-5px);
+            background-color: var(--primary-color);
+        }
+
+        @media (max-width: 968px) {
+            .details__container {
+                grid-template-columns: 1fr;
+            }
+            .details__img-wrapper {
+                position: relative;
+                top: 0;
+            }
+            .details__img {
+                height: 300px;
+            }
+            .details__name {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">
+        <i class="ri-arrow-left-line"></i> 返回列表
+    </a>
+
+    <main class="details">
+        <div class="container details__container" id="detailsContent">
+            <!-- Dynamic content will be injected here -->
+        </div>
+    </main>
+
+    <script src="./assets/js/data.js"></script>
+    <script>
+
+        const detailsContent = document.getElementById('detailsContent');
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = parseInt(urlParams.get('id'));
+
+        const company = companies.find(c => c.id === id);
+
+        if (company) {
+            detailsContent.innerHTML = `
+                <div class="details__img-wrapper">
+                    <img src="${company.image}" alt="${company.name}" class="details__img">
+                </div>
+
+                <div class="details__content">
+                    <span class="details__category">${company.category}</span>
+                    <h1 class="details__name">${company.name}</h1>
+
+                    <div class="details__section">
+                        <h3 class="details__section-title"><i class="ri-rocket-line"></i> 主要產品 / 服務</h3>
+                        <p class="details__text">${company.product}</p>
+                    </div>
+
+                    <div class="details__section">
+                        <h3 class="details__section-title"><i class="ri-map-pin-line"></i> 總部地址</h3>
+                        <p class="details__text">${company.address}</p>
+                    </div>
+
+                    <div class="details__section">
+                        <h3 class="details__section-title"><i class="ri-contacts-line"></i> 聯絡方式</h3>
+                        <div class="details__grid">
+                            <div class="details__card">
+                                <span class="details__card-label">電話</span>
+                                <span class="details__card-value">${company.contact}</span>
+                            </div>
+                            <div class="details__card">
+                                <span class="details__card-label">Email / 官網</span>
+                                <span class="details__card-value">${company.email || company.website}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="details__section">
+                        <h3 class="details__section-title"><i class="ri-funds-line"></i> 財務與人資資訊</h3>
+                        <div class="details__grid">
+                            <div class="details__card">
+                                <span class="details__card-label">資本額</span>
+                                <span class="details__card-value">${company.capital}</span>
+                            </div>
+                            <div class="details__card">
+                                <span class="details__card-label">利潤率</span>
+                                <span class="details__card-value">${company.profit}</span>
+                            </div>
+                            <div class="details__card">
+                                <span class="details__card-label">平均月薪</span>
+                                <span class="details__card-value">NT$ ${company.salary.toLocaleString()}</span>
+                            </div>
+                            <div class="details__card">
+                                <span class="details__card-label">地點</span>
+                                <span class="details__card-value">${company.city}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            detailsContent.innerHTML = `<h1>找不到公司資訊</h1>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <!--=============== REMIXICONS ===============-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <title>404 台灣生技與生物資訊人力資源平台</title>
+    <meta name="description" content="全台灣最完整的生技與生物資訊公司資料庫，提供精準的人力資源媒合與企業資訊查詢。">
+</head>
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">
+                <i class="ri-dna-line"></i> BioHR 404
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active-link">首頁</a></li>
+                    <li class="nav__item"><a href="#companies" class="nav__link">搜尋企業</a></li>
+                    <li class="nav__item"><a href="#" class="nav__link">關於我們</a></li>
+                </ul>
+
+                <!-- Close button -->
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+
+            <!-- Toggle button -->
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-line"></i>
+            </div>
+        </nav>
+    </header>
+
+
+    <!--==================== MAIN ====================-->
+    <main class="main">
+        <!--==================== HOME ====================-->
+        <section class="home section" id="home">
+            <div class="home__container container grid">
+                <div class="home__content">
+                    <span class="home__subtitle">NAVIGATE THE INDUSTRY</span>
+                    <h1 class="home__title">
+                        發現台灣 <span>生技與生資</span> <br>
+                        領先企業
+                    </h1>
+                    <p class="home__description">
+                        匯集全台基因體、新藥研發、CDMO 及再生醫學等頂尖公司資訊。
+                        助您掌握產業動態，規劃職涯發展。
+                    </p>
+                    <a href="#companies" class="button">
+                        Get Started
+                    </a>
+                </div>
+
+                <div class="home__images">
+                    <img src="assets/img/planet.svg" alt="" class="home__planet">
+                    <img src="assets/img/rocket.svg" alt="" class="home__rocket">
+                </div>
+            </div>
+
+            <img src="assets/img/clouds-1.svg" alt="" class="home__clouds-1">
+            <img src="assets/img/clouds-2.svg" alt="" class="home__clouds-2">
+        </section>
+
+        <!--==================== COMPANIES ====================-->
+        <section class="companies section" id="companies">
+            <div class="container">
+                <h2 class="section__title">優質企業總覽</h2>
+
+                <!-- FILTERS -->
+                <div class="filters__container">
+                    <div class="filter__group">
+                        <label for="filter-city" class="filter__label">工作地點</label>
+                        <select id="filter-city" class="filter__select">
+                            <option value="all">所有城市</option>
+                            <option value="台北市">台北市</option>
+                            <option value="新北市">新北市</option>
+                            <option value="桃園市">桃園市</option>
+                            <option value="新竹縣">新竹縣</option>
+                            <option value="台中市">台中市</option>
+                            <option value="台南市">台南市</option>
+                            <option value="高雄市">高雄市</option>
+                        </select>
+                    </div>
+
+                    <div class="filter__group">
+                        <label for="sort-salary" class="filter__label">薪資排序</label>
+                        <select id="sort-salary" class="filter__select">
+                            <option value="none">默認排序</option>
+                            <option value="high">薪資由高到低</option>
+                            <option value="low">薪資由低到高</option>
+                        </select>
+                    </div>
+
+                    <div class="filter__group">
+                        <label for="search-name" class="filter__label">搜尋公司</label>
+                        <input type="text" id="search-name" class="filter__input" placeholder="搜尋公司...">
+                    </div>
+                </div>
+
+                <!-- COMPANY LIST GRID -->
+                <div class="company__list grid" id="company-list">
+                    <!-- Dynamic Content -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!--==================== MODAL ====================-->
+    <div class="modal" id="company-modal">
+        <div class="modal__content">
+            <i class="ri-close-line modal__close" id="modal-close"></i>
+            
+            <div id="modal-body">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <!--==================== SCROLL UP ====================-->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
+
+    <!--=============== GSAP ===============-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!--=============== MAIN JS ===============-->
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
+
