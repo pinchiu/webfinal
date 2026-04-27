@@ -15,20 +15,21 @@
 
 ### 1. 核心檔案結構
 - `frontend/index.html`: 語義化 HTML5 結構，整合 Google Fonts (Work Sans) 與 Material Symbols。
-- `frontend/style.css`: 自定義 CSS，包含 `.block-gradient` 漸層與全域銳利邊角強制設定 (`border-radius: 0 !important`)。
-- `frontend/script.js`: **Tailwind CSS 運行時配置 (Runtime Config)**，定義自定義顏色、間距、排版與陰影。
+- `frontend/style.css`: 自定義 CSS 系統，包含色彩變數、排版系統與元件樣式。
+- `frontend/app.js`: 前端邏輯核心，處理資料抓取、篩選與動態渲染。
 
-### 2. 色彩規範 (Tailwind Colors)
-- **Primary**: `mistral-orange` (#fa520f), `mistral-flame` (#fb6424)
-- **Background**: `warm-ivory` (#fffaeb), `cream` (#fff0c2), `surface` (#fff8f6)
-- **Accent**: `sunshine-700` (#ffa110), `bright-yellow` (#ffd900)
-- **Neutral**: `mistral-black` (#1f1f1f)
+### 2. 色彩規範 (CSS Variables)
+定義於 `:root`：
+- `--primary`: `#fa520f` (Mistral Orange)
+- `--secondary`: `#ffa110` (Sunshine 700)
+- `--background`: `#fffaeb` (Warm Ivory)
+- `--surface`: `#fff0c2` (Cream)
+- `--text-main`: `#1f1f1f` (Mistral Black)
 
-### 3. 排版層級 (Tailwind Typography)
-- **Display Hero**: `text-display-hero` (82px / LH 1.0 / tracking -2.05px / 900 weight)
-- **Section Heading**: `text-section-heading` (56px / LH 0.95 / 900 weight)
-- **Card Title**: `text-card-title` (30px / LH 1.20 / 700 weight)
-- **Body**: `text-body` (16px / LH 1.50)
+### 3. 排版層級 (CSS Classes)
+- **Hero Title**: `.hero-title` (82px / LH 1.0 / tracking -2px / 900 weight)
+- **Card Title**: `.card-title` (30px / 700 weight)
+- **Section Heading**: 自定義內聯樣式或特定區塊 Class (56px)
 
 ### 4. 視覺元件規格
 - **Shadows**: `shadow-golden-float` (三層級聯金色陰影，模擬光影漂浮感)。
@@ -37,11 +38,19 @@
 
 ## Technical Decisions
 
-- **後端技術**: 使用 PHP 8.x 處理 API 請求與頁面渲染。
+- **後端技術**: 使用 PHP 8.x 處理 API 請求。
 - **前端技術**: 
-    - 使用 Tailwind CSS CDN 作為主要樣式框架。
+    - 使用 **Vanilla CSS (原生 CSS)** 作為主要樣式框架，不使用 Tailwind。
     - 使用 Vanilla JavaScript 處理動態篩選與資料呈現。
 - **資料庫**: MySQL，表格名 `companies`。
+
+### 5. 資料整合與異步加載
+
+為了提升系統的可維護性與動態性，前端已實作以下機制：
+- **資料非同步化**：移除前端硬編碼的公司資料，改由 `loadData()` 函式透過 Fetch API 處理。
+- **API 對接預留**：統一預設請求路徑為 `../backend/api/get_companies.php`，確保前後端分離開發。
+- **錯誤處理機制**：實作容錯邏輯，若後端 API 尚未建立或連線失敗，網頁將顯示友善提示而非失效，提升使用者體驗。
+- **初始化流程**：網頁載入時優先執行 `loadData()`，確保資料獲取成功後才觸發畫面的初次渲染與事件監聽設定。
 
 ## 資料結構 (Schema)
 
