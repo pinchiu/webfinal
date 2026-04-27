@@ -81,7 +81,7 @@ git commit -m "feat(backend): 建立 companies 資料表及關聯"
 
 ### 3. 如何發佈你的修改 (Pull Request, PR)
 
-當你的功能開發完成，準備合併到團隊的 `dev` 分支時：
+當你的功能開發完成，準備合併到團隊的 main 分支時：
 
 1.  **推送到 GitHub 遠端：**
     ```bash
