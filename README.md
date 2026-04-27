@@ -112,8 +112,7 @@ git commit -m "feat(backend): 建立 companies 資料表及關聯"
 2. **同步主線**：`git checkout main` -> `git pull origin main`
 3. **合併回分支**：`git checkout feature/xxx` -> `git merge main`
 
-**情境 C：合併後的清理**
-開發完成的分支若已併入 main，建議刪除以保持本地端整潔：
+
 ```bash
 git checkout main
 git pull origin main
