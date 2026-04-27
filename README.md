@@ -40,9 +40,14 @@ webfinal/
 
 ### 1. 分支策略 (GitHub Flow)
 為了保持開發流暢，專案採用簡化的 GitHub Flow：
-*   **`main` (主分支)**：唯一的主要分支，隨時保持穩定、可部署的狀態。**不要直接 Commit 到此分支。**
-*   **`feature/<功能名稱>`**：開發新功能時，從 `main` 分支切換出來。例如：`feature/frontend-ui` 或 `feature/backend-api`。
-*   **`fix/<錯誤修復>`**：修復 Bug 時使用。例如：`fix/search-bug`。
+*   **`main` (主分支)**：唯一的主要分支，隨時保持穩定、可部署的狀態。**禁止直接 Commit。**
+*   **分支命名規範**：
+    *   `feature/xxx`：開發新功能 (New feature)
+    *   `fix/xxx`：修復錯誤 (Bug fix)
+    *   `docs/xxx`：文件更新 (Documentation)
+    *   `refactor/xxx`：程式碼重構 (Refactoring, 無功能增減)
+    *   `style/xxx`：樣式調整 (CSS, 格式調整)
+
 
 ### 2. 本地開發流程 (Development Flow)
 
@@ -67,12 +72,12 @@ git commit -m "feat(backend): 建立 companies 資料表及關聯"
 ```
 
 **Commit 訊息規範 (Conventional Commits)**:
-*   `feat: ` - 新增功能 (Feature)
-*   `fix: ` - 修復 Bug (Bug Fix)
-*   `docs: ` - 文件更新 (Documentation)
-*   `style: ` - 程式碼格式修改 (不影響運作的排版等)
-*   `refactor: ` - 程式碼重構 (Refactoring)
-*   `test: ` - 新增或修改測試 (Testing)
+請使用 `類別(範圍): 具體描述` 的格式。
+*   `feat(scope): ` - 新增功能。範例：`feat(backend): 實作 PHP 登入 API`
+*   `fix(scope): ` - 修復 Bug。範例：`fix(frontend): 修正手機版導覽列無法點擊`
+*   `docs: ` - 文件更新。範例：`docs: 更新 README 協作規範`
+*   `style: ` - 樣式、格式修改。範例：`style: 調整卡片陰影顏色`
+*   `refactor: ` - 程式碼重構。範例：`refactor(api): 優化資料庫查詢邏輯`
 
 ### 3. 如何發佈你的修改 (Pull Request, PR)
 
@@ -92,15 +97,25 @@ git commit -m "feat(backend): 建立 companies 資料表及關聯"
 4.  **合併 (Merge)：**
     *   審查通過後，由夥伴點擊 "Merge pull request"，將你的程式碼合併進 `main` 分支。
 
-### 4. 保持本地端程式碼同步
+### 4. 保持同步與合併後清理 (Sync & Cleanup)
 
-在開發過程中，夥伴可能已經合併了新的程式碼到 `main` 分支。請務必常常同步你的分支，避免日後產生嚴重的衝突 (Conflict)。
+當夥伴合併了新程式碼，或者你的 PR 被合併後，請執行以下步驟：
+
+**1. 同步雲端最新狀態：**
 ```bash
 git checkout main
-git pull origin main          # 把遠端最新開發進度拉下來
-git checkout feature/你的功能 # 切回你自己的分支
-git merge main                # 將最新的 main 合併進你的分支
+git pull origin main
 ```
+
+**2. (可選) 刪除已合併的本地分支：**
+開發完成的分支若已併入 main，建議刪除以保持本地端整潔：
+```bash
+git branch -d feature/你的功能
+```
+
+**3. 合併衝突處理 (Conflict)：**
+若 `git merge main` 時發生衝突，請手動在檔案中選擇保留的區塊，儲存後再次 `git add .` 並 `git commit`。
+
 
 ---
 
