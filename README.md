@@ -38,20 +38,19 @@ webfinal/
 
 為了確保多人協作時程式碼的穩定性與整潔，本專案將採用以下 Git 協作流程。
 
-### 1. 分支策略 (Branching Strategy)
-專案主要分為以下幾種分支：
-*   **`main` (主分支)**：隨時保持穩定、可部署 (Production-ready) 的狀態。**不要直接 Commit 到此分支。**
-*   **`dev` (開發分支)**：主要開發的分支。所有新功能測試完畢後會先合併到這裡。
-*   **`feature/<功能名稱>`**：開發新功能時，從 `dev` 分支切換出來。例如：`feature/frontend-login` 或 `feature/backend-api`。
-*   **`fix/<錯誤修復>`**：修復 Bug 時使用。例如：`fix/company-filter-bug`。
+### 1. 分支策略 (GitHub Flow)
+為了保持開發流暢，專案採用簡化的 GitHub Flow：
+*   **`main` (主分支)**：唯一的主要分支，隨時保持穩定、可部署的狀態。**不要直接 Commit 到此分支。**
+*   **`feature/<功能名稱>`**：開發新功能時，從 `main` 分支切換出來。例如：`feature/frontend-ui` 或 `feature/backend-api`。
+*   **`fix/<錯誤修復>`**：修復 Bug 時使用。例如：`fix/search-bug`。
 
 ### 2. 本地開發流程 (Development Flow)
 
-**步驟一：複製專案並切換到開發分支**
+**步驟一：複製專案並切換到主分支**
 ```bash
 git clone https://github.com/pinchiu/webfinal.git
 cd webfinal
-git checkout dev
+git checkout main
 ```
 
 **步驟二：建立你的專屬功能分支並開始開發**
@@ -85,36 +84,41 @@ git commit -m "feat(backend): 建立 companies 資料表及關聯"
     ```
 2.  **建立 Pull Request (PR)：**
     *   到 GitHub 專案頁面，點擊 **"Compare & pull request"**。
-    *   設定來源分支為你的 `feature/xxx`，目標分支 (Base) 選擇為 **`dev`**。(請注意：絕對不要直接發 PR 給 `main`！)
+    *   設定來源分支為你的 `feature/xxx`，目標分支 (Base) 選擇為 **`main`**。
     *   在 PR 描述中，清楚寫下你完成了哪些功能、解決了什麼問題。
 3.  **程式碼審查 (Code Review)：**
-    *   請至少一位團隊成員 (Reviewer) 來檢查你的程式碼。
+    *   請你的協作夥伴來檢查你的程式碼。
     *   如果有需要修改的地方，請在本地修改後再次 `git add` > `git commit` > `git push`，PR 會自動更新。
 4.  **合併 (Merge)：**
-    *   審查通過後，由負責人點擊 "Merge pull request"，將你的程式碼合併進 `dev` 分支。
+    *   審查通過後，由夥伴點擊 "Merge pull request"，將你的程式碼合併進 `main` 分支。
 
 ### 4. 保持本地端程式碼同步
 
-在開發過程中，其他成員可能已經合併了新的程式碼到 `dev` 分支。請務必常常同步你的分支，避免日後產生衝突 (Conflict)。
+在開發過程中，夥伴可能已經合併了新的程式碼到 `main` 分支。請務必常常同步你的分支，避免日後產生嚴重的衝突 (Conflict)。
 ```bash
-git checkout dev
-git pull origin dev           # 把遠端最新開發進度拉下來
+git checkout main
+git pull origin main          # 把遠端最新開發進度拉下來
 git checkout feature/你的功能 # 切回你自己的分支
-git merge dev                 # 將最新的 dev 合併進你的分支
+git merge main                # 將最新的 main 合併進你的分支
 ```
 
 ---
 
 ## 🚀 環境安裝與執行 (Getting Started)
 
-*(待補充：前端與後端的環境建置指令，例如 npm install, python app.py 等，請各團隊在開發後補上。)*
+本專案採用 PHP 後端與 Vanilla HTML/JS 前端，不需繁雜的編譯步驟。
 
-### 前端環境
+### 前端環境 (Frontend)
+前端使用原生 HTML, CSS 與 JavaScript，不依賴 npm。
 1. `cd frontend`
-2. `(等待填寫：例如 npm install)`
-3. `(等待填寫：例如 npm run dev)`
+2. 直接在瀏覽器中開啟 `index.html`，或使用 VS Code 的 **Live Server** 擴充功能開啟以獲得最佳預覽體驗。
 
-### 後端環境
-1. `cd backend`
-2. `(等待填寫：例如 pip install -r requirements.txt)`
-3. `(等待填寫：例如 uvicorn main:app --reload)`
+### 後端環境 (Backend)
+後端使用 PHP 提供 API 服務。
+1. 請確保電腦已安裝 PHP 8.x 環境 (可使用 XAMPP, MAMP 或直接安裝 PHP)。
+2. 啟動 PHP 內建伺服器：
+   ```bash
+   cd backend
+   php -S localhost:8000
+   ```
+3. (後續補充) 匯入 `schema.sql` 與 `seed.sql` 至 MySQL 資料庫，並在 `db.php` 設定連線資訊。
