@@ -1,43 +1,57 @@
 ## Context
 
-本專案處於啟動階段。目前已有一份 `final.md` 包含初步的公司名單與開發需求。我們需要將其轉化為一個功能性的前後端 Web 應用程式。
+本專案處於啟動階段。視覺風格全面採用 **Mistral AI 啟發的設計系統 (Mistral-inspired Design System)**。
+目前已將原型拆分為 `index.html`, `style.css`, 與 `script.js`，作為開發基礎。
 
 ## Goals / Non-Goals
 
 **Goals:**
-- 初始化前後端開發環境。
-- 設計並實作 `companies` 資料庫 schema，完整涵蓋 `final.md` 中的所有欄位。
-- 實作後端 API 以提供 CRUD 功能（首階段以 Read 為主）。
-- 實作前端列表頁，包含基於地點與薪資的篩選與排序邏輯。
-- 實作前端詳細頁。
+- 初始化前後端開發環境（PHP/SQL/HTML/CSS/JS）。
+- 實作 Mistral 視覺風格：暖色系配色、大型粗獷排版 (82px Display)、銳利幾何形狀 (0px Border Radius)、金色陰影。
+- 整合 `final.md` 資料至 MySQL 資料庫。
+- 實作具備動態篩選功能的生物科技公司目錄。
 
-**Non-Goals:**
-- 用戶登入與權限管理（首階段為公開資訊平台）。
-- 自動化即時股價抓取（首階段為手動/靜態資料）。
-- 資料庫後台管理介面。
+## Design System Implementation
 
-## Decisions
+### 1. 核心檔案結構
+- `frontend/index.html`: 語義化 HTML5 結構，整合 Google Fonts (Work Sans) 與 Material Symbols。
+- `frontend/style.css`: 自定義 CSS，包含 `.block-gradient` 漸層與全域銳利邊角強制設定 (`border-radius: 0 !important`)。
+- `frontend/script.js`: **Tailwind CSS 運行時配置 (Runtime Config)**，定義自定義顏色、間距、排版與陰影。
 
-- **後端技術**: 使用 PHP。理由：傳統且穩定，適合處理伺服器端邏輯與 SQL 資料庫互動。
-- **前端技術**: 使用原生 HTML5, CSS3, 與 JavaScript (Vanilla JS)。理由：符合開發者要求的傳統網站架構。
-- **資料庫**: 使用 SQL 資料庫 (MySQL/MariaDB)。
-- **資料結構**: 
-    - `id`: Primary Key
-    - `name`: 公司名稱
-    - `category`: 產業類別 (基因體, 新藥研發等)
-    - `address`: 完整地址
-    - `city`: 從地址解析出的城市（用於篩選）
-    - `products`: 產品服務
-    - `contact_phone`: 聯絡電話
-    - `contact_email`: 聯絡信箱
-    - `contact_web`: 官方網站
-    - `capital`: 資本額
-    - `gross_margin`: 毛利
-    - `profit`: 利潤
-    - `stock_price`: 股價
-    - `salary`: 薪資資訊
+### 2. 色彩規範 (Tailwind Colors)
+- **Primary**: `mistral-orange` (#fa520f), `mistral-flame` (#fb6424)
+- **Background**: `warm-ivory` (#fffaeb), `cream` (#fff0c2), `surface` (#fff8f6)
+- **Accent**: `sunshine-700` (#ffa110), `bright-yellow` (#ffd900)
+- **Neutral**: `mistral-black` (#1f1f1f)
 
-## Risks / Trade-offs
+### 3. 排版層級 (Tailwind Typography)
+- **Display Hero**: `text-display-hero` (82px / LH 1.0 / tracking -2.05px / 900 weight)
+- **Section Heading**: `text-section-heading` (56px / LH 0.95 / 900 weight)
+- **Card Title**: `text-card-title` (30px / LH 1.20 / 700 weight)
+- **Body**: `text-body` (16px / LH 1.50)
 
-- **資料一致性**: 從 `final.md` 手動轉換資料到資料庫可能會有遺漏或格式不一。
-- **SQLite 限制**: 隨者團隊擴大或資料量增加，未來可能需要遷移至 PostgreSQL。
+### 4. 視覺元件規格
+- **Shadows**: `shadow-golden-float` (三層級聯金色陰影，模擬光影漂浮感)。
+- **Gradient**: `.block-gradient` (從 Bright Yellow 到 Mistral Orange 的四段式線性漸層)。
+- **Borders**: 全域 `border-radius: 0`，強調建築感的銳利線條。
+
+## Technical Decisions
+
+- **後端技術**: 使用 PHP 8.x 處理 API 請求與頁面渲染。
+- **前端技術**: 
+    - 使用 Tailwind CSS CDN 作為主要樣式框架。
+    - 使用 Vanilla JavaScript 處理動態篩選與資料呈現。
+- **資料庫**: MySQL，表格名 `companies`。
+
+## 資料結構 (Schema)
+
+| 欄位 | 類型 | 說明 |
+| :--- | :--- | :--- |
+| id | INT AI PK | 唯一識別碼 |
+| name | VARCHAR | 公司名稱 |
+| category | VARCHAR | 產業類別 (如：Next-Gen Sequencing) |
+| location | VARCHAR | 地點 (Taipei, Hsinchu 等) |
+| description | TEXT | 公司簡介 |
+| salary_benchmark | INT | 平均薪資基準 (用於排序) |
+| icon_type | VARCHAR | Material Icon 名稱 |
+| contact_info | JSON | 包含電話、信箱、網站的物件 |
