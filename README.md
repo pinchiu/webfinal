@@ -97,24 +97,31 @@ git commit -m "feat(backend): 建立 companies 資料表及關聯"
 4.  **合併 (Merge)：**
     *   審查通過後，由夥伴點擊 "Merge pull request"，將你的程式碼合併進 `main` 分支。
 
-### 4. 保持同步與合併後清理 (Sync & Cleanup)
+### 4. 保持同步與開發循環 (Sync & Workflow)
 
-當夥伴合併了新程式碼，或者你的 PR 被合併後，請執行以下步驟：
+為了確保你的開發基礎永遠是最新的，請養成以下習慣：
 
-**1. 同步雲端最新狀態：**
+**情境 A：準備開始開發新功能時（保平安三步驟）**
+1. **同步主線**：`git checkout main` -> `git pull origin main`
+2. **切換分支**：`git checkout -b feature/我的新功能`
+3. **開始開發**：此時你的基礎程式碼已包含夥伴的所有成果。
+
+**情境 B：開發到一半，夥伴合併了新東西（中途同步）**
+如果你在 `feature/xxx` 寫到一半需要夥伴剛合併的新功能：
+1. **暫存進度**：`git add .` -> `git commit -m "feat: 暫存開發進度"`
+2. **同步主線**：`git checkout main` -> `git pull origin main`
+3. **合併回分支**：`git checkout feature/xxx` -> `git merge main`
+
+**情境 C：合併後的清理**
+開發完成的分支若已併入 main，建議刪除以保持本地端整潔：
 ```bash
 git checkout main
 git pull origin main
+git branch -d feature/已完成的功能
 ```
 
-**2. (可選) 刪除已合併的本地分支：**
-開發完成的分支若已併入 main，建議刪除以保持本地端整潔：
-```bash
-git branch -d feature/你的功能
-```
-
-**3. 合併衝突處理 (Conflict)：**
-若 `git merge main` 時發生衝突，請手動在檔案中選擇保留的區塊，儲存後再次 `git add .` 並 `git commit`。
+**合併衝突處理 (Conflict)：**
+若 `git merge main` 時發生衝突，請手動在編輯器中選擇保留的區塊，儲存後再次 `git add .` 並 `git commit`。
 
 
 ---
