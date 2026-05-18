@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Noto+Sans+TC:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-webfont@1.0.0/style.css" />
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Remix Icons -->
@@ -17,6 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 </head>
+
 <body class="dark-mode">
     <div class="cursor-glow"></div>
     <div class="scroll-progress"></div>
@@ -59,7 +64,6 @@
                     <li class="nav__item"><a href="#home" class="nav__link active-link">首頁</a></li>
                     <li class="nav__item"><a href="#companies" class="nav__link">生技企業</a></li>
                     <li class="nav__item"><a href="#market" class="nav__link">市場洞察</a></li>
-                    <li class="nav__item"><a href="#sectors" class="nav__link">產業領域</a></li>
                 </ul>
 
                 <!-- Close button -->
@@ -70,11 +74,17 @@
 
             <div class="nav__actions">
                 <div class="filters">
-                    <select id="locationFilter" class="filter__select">
+                    <select class="filter__select location-filter">
                         <option value="all">所有地點</option>
                         <option value="taipei">台北市</option>
                         <option value="new-taipei">新北市</option>
                         <option value="hsinchu">新竹縣市</option>
+                        <option value="taichung">台中市</option>
+                        <option value="tainan">台南市</option>
+                        <option value="kaohsiung">高雄市</option>
+                        <option value="taoyuan">桃園市</option>
+                        <option value="hualien">花蓮縣市</option>
+                        <option value="taitung">台東縣市</option>
                     </select>
                 </div>
 
@@ -134,10 +144,8 @@
                             <i data-lucide="briefcase"></i>
                             <h3>資本額排行</h3>
                         </div>
-                        <div class="m-list">
-                            <div class="m-row"><span>藥華醫藥</span><span class="val">33.2B</span></div>
-                            <div class="m-row"><span>保瑞藥業</span><span class="val">10.1B</span></div>
-                            <div class="m-row"><span>台康生技</span><span class="val">3.1B</span></div>
+                        <div class="m-list" id="capitalRanking">
+                            <!-- Dynamic Content -->
                         </div>
                     </div>
                     <div class="market-item reveal-up" style="--d: 0.2s">
@@ -145,10 +153,8 @@
                             <i data-lucide="pie-chart"></i>
                             <h3>平均毛利率</h3>
                         </div>
-                        <div class="m-list">
-                            <div class="m-row"><span>基因檢測</span><span class="val">68%</span></div>
-                            <div class="m-row"><span>新藥開發</span><span class="val">42%</span></div>
-                            <div class="m-row"><span>CDMO</span><span class="val">25%</span></div>
+                        <div class="m-list" id="profitRanking">
+                            <!-- Dynamic Content -->
                         </div>
                     </div>
                     <div class="market-item reveal-up" style="--d: 0.3s">
@@ -156,10 +162,8 @@
                             <i data-lucide="dollar-sign"></i>
                             <h3>薪資競爭力</h3>
                         </div>
-                        <div class="m-list">
-                            <div class="m-row"><span>生物資訊工程師</span><span class="val">1.2M+</span></div>
-                            <div class="m-row"><span>臨床研究員 (CRA)</span><span class="val">0.9M+</span></div>
-                            <div class="m-row"><span>研發科學家</span><span class="val">1.0M+</span></div>
+                        <div class="m-list" id="salaryRanking">
+                            <!-- Dynamic Content -->
                         </div>
                     </div>
                 </div>
@@ -171,64 +175,14 @@
                 <div class="section-header">
                     <h2 class="section-title left reveal-up">生技領航企業</h2>
                     <div class="filters reveal-up">
-                        <select id="locationFilter" class="filter__select">
+                        <select class="filter__select location-filter">
                             <option value="all">所有地點</option>
-                            <option value="taipei">台北市</option>
-                            <option value="new-taipei">新北市</option>
-                            <option value="hsinchu">新竹縣市</option>
                         </select>
                         <button class="btn btn-small active">薪資排序</button>
                     </div>
                 </div>
-                <div class="company-grid" id="companyGrid">
-                    <div class="company-card" data-location="new-taipei" data-salary="high">
-                        <div class="card-glow"></div>
-                        <div class="card-content">
-                            <span class="category">基因體</span>
-                            <h3>基龍米克斯</h3>
-                            <p>次世代定序(NGS)、核酸合成、生物資訊分析</p>
-                            <div class="card-footer">
-                                <span><i data-lucide="map-pin"></i> 新北市汐止區</span>
-                                <span class="view-btn">查看詳情 <i data-lucide="arrow-right"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="company-card" data-location="taipei" data-salary="high">
-                        <div class="card-glow"></div>
-                        <div class="card-content">
-                            <span class="category">新藥研發</span>
-                            <h3>藥華醫藥</h3>
-                            <p>血液腫瘤罕病新藥 (Besremi 百斯瑞明)</p>
-                            <div class="card-footer">
-                                <span><i data-lucide="map-pin"></i> 台北市南港區</span>
-                                <span class="view-btn">查看詳情 <i data-lucide="arrow-right"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="company-card" data-location="taipei" data-salary="med">
-                        <div class="card-glow"></div>
-                        <div class="card-content">
-                            <span class="category">基因體</span>
-                            <h3>行動基因</h3>
-                            <p>癌症基因檢測 (ACTOnco)、免疫治療評估</p>
-                            <div class="card-footer">
-                                <span><i data-lucide="map-pin"></i> 台北市內湖區</span>
-                                <span class="view-btn">查看詳情 <i data-lucide="arrow-right"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="company-card" data-location="new-taipei" data-salary="high">
-                        <div class="card-glow"></div>
-                        <div class="card-content">
-                            <span class="category">CDMO</span>
-                            <h3>台康生技</h3>
-                            <p>大分子蛋白質藥物、生物相似藥 CDMO</p>
-                            <div class="card-footer">
-                                <span><i data-lucide="map-pin"></i> 新北市汐止區</span>
-                                <span class="view-btn">查看詳情 <i data-lucide="arrow-right"></i></span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="company-list" id="companyGrid">
+                    <!-- Dynamic Categories and Cards will be injected here -->
                 </div>
             </div>
         </section>
@@ -267,4 +221,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
