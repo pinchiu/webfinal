@@ -105,20 +105,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const bioSearch = document.getElementById('bioSearch');
 
     if (analyzeBtn && matchPreview) {
-        analyzeBtn.addEventListener('click', () => {
+        analyzeBtn.addEventListener('click', async () => {
             const query = bioSearch.value.trim();
-            if (!query) return;
-
-            analyzeBtn.disabled = true;
-            analyzeBtn.querySelector('span').textContent = '數據掃描中...';
-            matchPreview.querySelector('.status').textContent = '正在分析序列...';
             
-            setTimeout(() => {
-                matchPreview.querySelector('.status').textContent = '分析完成';
+            // UI Feedback
+            analyzeBtn.disabled = true;
+            analyzeBtn.querySelector('span').textContent = '數據搜尋中...';
+            matchPreview.querySelector('.status').textContent = '正在查詢資料庫...';
+            
+            try {
+                // Fetch filtered results from API
+                const response = await fetch(`api.php?q=${encodeURIComponent(query)}`);
+                if (!response.ok) throw new Error('Search failed');
+                const results = await response.json();
+                
+                // Render the new results
+                renderCompanies(results);
+                
+                setTimeout(() => {
+                    matchPreview.querySelector('.status').textContent = '搜尋完成';
+                    analyzeBtn.disabled = false;
+                    analyzeBtn.querySelector('span').textContent = '數據分析';
+                    gsap.fromTo(matchPreview, { scale: 1 }, { scale: 1.1, duration: 0.2, yoyo: true, repeat: 1 });
+                }, 800);
+            } catch (error) {
+                console.error('Search error:', error);
+                matchPreview.querySelector('.status').textContent = '搜尋失敗';
                 analyzeBtn.disabled = false;
                 analyzeBtn.querySelector('span').textContent = '數據分析';
-                gsap.fromTo(matchPreview, { scale: 1 }, { scale: 1.1, duration: 0.2, yoyo: true, repeat: 1 });
-            }, 1500);
+            }
         });
     }
 
@@ -246,15 +261,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function loadCompanies() {
         try {
-            // Replace with your actual API URL
-            const response = await fetch('../../backend/api.php'); 
+            // Updated path to current directory
+            const response = await fetch('api.php'); 
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             
             renderCompanies(data);
         } catch (error) {
             console.error('Fetch error:', error);
-            // Fallback if API fails (optional: show error in UI)
         }
     }
 

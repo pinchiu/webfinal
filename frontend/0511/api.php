@@ -22,8 +22,16 @@ try {
         exit;
     }
 
-    $tsql = "SELECT * FROM [dbo].[companies]";
-    $getResults = sqlsrv_query($conn, $tsql);
+    $search = isset($_GET['q']) ? $_GET['q'] : '';
+
+    if ($search !== '') {
+        $tsql = "SELECT * FROM [dbo].[companies] WHERE name LIKE ? OR products LIKE ? OR category LIKE ?";
+        $params = array("%$search%", "%$search%", "%$search%");
+        $getResults = sqlsrv_query($conn, $tsql, $params);
+    } else {
+        $tsql = "SELECT * FROM [dbo].[companies]";
+        $getResults = sqlsrv_query($conn, $tsql);
+    }
 
     if ($getResults === false) {
         http_response_code(500);
