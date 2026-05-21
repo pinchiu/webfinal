@@ -41,7 +41,7 @@ try {
 
     $companies = array();
     while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
-        $companies[] = $row;
+        $companies[] = array_change_key_case($row, CASE_LOWER);
     }
 
     echo json_encode($companies);

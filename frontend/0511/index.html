@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="404 Biotech 是台灣頂尖的生技與生物資訊人力資源平台，即時追蹤企業財務指標、毛利率、薪資水準與市場表現，為求職者與投資者提供決策數據支援。">
     <title>404 Biotech | 台灣生技與生資人力資源平台</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Fonts -->
@@ -20,6 +21,10 @@
     <!-- GSAP -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <!-- Three.js & Libraries for 3D Computer Visual -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 </head>
 
 <body class="dark-mode">
@@ -48,6 +53,24 @@
                         <div class="modal-contact"></div>
                     </div>
                 </div>
+                <div class="modal-finance-grid">
+                    <div class="finance-card">
+                        <span>資本額</span>
+                        <strong class="modal-finance-capital"></strong>
+                    </div>
+                    <div class="finance-card">
+                        <span>平均毛利</span>
+                        <strong class="modal-finance-margin"></strong>
+                    </div>
+                    <div class="finance-card">
+                        <span>股價</span>
+                        <strong class="modal-finance-stock"></strong>
+                    </div>
+                    <div class="finance-card">
+                        <span>薪資水準</span>
+                        <strong class="modal-finance-salary"></strong>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-cta">前往官網 <i data-lucide="external-link"></i></button>
                 </div>
@@ -65,11 +88,6 @@
                     <li class="nav__item"><a href="#companies" class="nav__link">生技企業</a></li>
                     <li class="nav__item"><a href="#market" class="nav__link">市場洞察</a></li>
                 </ul>
-
-                <!-- Close button -->
-                <div class="nav__close" id="nav-close">
-                    <i class="ri-close-line"></i>
-                </div>
             </div>
 
             <div class="nav__actions">
@@ -98,8 +116,17 @@
 
     <main class="main">
         <section class="hero section" id="home">
-            <div class="container hero-container">
-                <div class="hero-content reveal-left">
+             <div class="container hero-container">
+                <!-- Left: 3D Computer -->
+                <div class="hero-visual reveal-left">
+                    <div class="dna-container" id="dnaContainer" style="position: relative; overflow: visible;">
+                        <!-- Three.js 3D Computer Container -->
+                        <div class="canvas-container" id="computer-container" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1;"></div>
+                    </div>
+                </div>
+
+                <!-- Center: Text Content -->
+                <div class="hero-content reveal-up">
                     <div class="badge-new">Financial Intelligence</div>
                     <h1 class="glitch-text">台灣生技<br><span>資產數據平台</span></h1>
                     <p>即時追蹤台灣頂尖生技企業的財務指標與市場表現。從資本額到毛利潤，為投資者與專業人才提供最透明的數據決策支援。</p>
@@ -120,14 +147,45 @@
                         <button class="tag">台康 (6589)</button>
                     </div>
                 </div>
-                <div class="hero-visual reveal-right">
-                    <div class="dna-container" id="dnaContainer">
-                        <div class="dna-overlay" id="dnaOverlay">
+
+                <!-- Right: Interactive DNA Animation -->
+                <div class="hero-dna reveal-right">
+                    <div class="dna-panel-right" id="dnaPanelRight">
+                        <div class="dna-panel-overlay">
                             <div class="scanning-line"></div>
                         </div>
-                        <div class="match-preview" id="matchPreview">
+                        
+                        <!-- AI HUD Preview Panel moved here -->
+                        <div class="match-preview" id="matchPreview" style="z-index: 3;">
                             <div class="preview-header">
-                                <span class="status">分析中...</span>
+                                <span class="status">智慧系統待命...</span>
+                            </div>
+                            <div class="hud-details" style="display:none;">
+                                <h4 class="hud-title">---</h4>
+                                <div class="hud-score">匹配度: <span class="score-val">--%</span></div>
+                                <div class="hud-metrics">
+                                    <div class="hud-metric">
+                                        <div class="hud-metric-label">薪資水準</div>
+                                        <div class="hud-progress-container">
+                                            <div class="hud-progress-bar salary-bar" style="width: 0%"></div>
+                                        </div>
+                                        <div class="hud-metric-val salary-val">--</div>
+                                    </div>
+                                    <div class="hud-metric">
+                                        <div class="hud-metric-label">毛利率</div>
+                                        <div class="hud-progress-container">
+                                            <div class="hud-progress-bar margin-bar" style="width: 0%"></div>
+                                        </div>
+                                        <div class="hud-metric-val margin-val">--</div>
+                                    </div>
+                                    <div class="hud-metric">
+                                        <div class="hud-metric-label">資本實力</div>
+                                        <div class="hud-progress-container">
+                                            <div class="hud-progress-bar capital-bar" style="width: 0%"></div>
+                                        </div>
+                                        <div class="hud-metric-val capital-val">--</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -174,11 +232,31 @@
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title left reveal-up">生技領航企業</h2>
-                    <div class="filters reveal-up">
-                        <select class="filter__select location-filter">
-                            <option value="all">所有地點</option>
-                        </select>
-                        <button class="btn btn-small active">薪資排序</button>
+                    <div class="filters-panel reveal-up">
+                        <div class="filter-group">
+                            <label>地點</label>
+                            <select class="filter__select location-filter">
+                                <option value="all">所有地點</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>分類</label>
+                            <select class="filter__select category-filter" id="categoryFilter">
+                                <option value="all">所有領域</option>
+                            </select>
+                        </div>
+                        <div class="sort-group">
+                            <label>排序方式</label>
+                            <div class="sort-options">
+                                <button class="btn btn-small active" data-sort="default">預設</button>
+                                <button class="btn btn-small" data-sort="salary">薪資</button>
+                                <button class="btn btn-small" data-sort="capital">資本額</button>
+                                <button class="btn btn-small" data-sort="margin">毛利率</button>
+                            </div>
+                            <button class="btn btn-direction" id="sortDirectionBtn" title="切換升降冪" data-dir="desc">
+                                <i data-lucide="arrow-down-narrow-wide"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="company-list" id="companyGrid">
@@ -218,6 +296,9 @@
             <p>&copy; 2026 404 Biotech Labs. 致力於推動台灣生醫資訊化革命。</p>
         </div>
     </footer>
+
+    <!-- Notification Toast -->
+    <div id="toastNotification" class="toast-notification"></div>
 
     <script src="script.js"></script>
 </body>

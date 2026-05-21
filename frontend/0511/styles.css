@@ -253,18 +253,28 @@ button {
 }
 
 .filter__select {
-    padding: 0.5rem 1rem;
-    background-color: var(--bg-color);
+    padding: 0.5rem 2.5rem 0.5rem 1.25rem;
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     color: var(--text-primary);
     font-weight: 500;
     border-radius: 2rem;
     outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
     transition: var(--transition);
+    cursor: pointer;
 }
 
-.filter__select:focus {
+.filter__select:focus,
+.filter__select:hover {
     border-color: var(--accent-color);
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
 @media screen and (min-width: 1150px) {
@@ -296,9 +306,38 @@ button {
 
 .hero-container {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
+    grid-template-columns: 1fr 1.1fr 0.8fr;
+    gap: 2.5rem;
     align-items: center;
+}
+
+/* DNA Right Panel */
+.hero-dna {
+    position: relative;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dna-panel-right {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+    border-radius: 24px;
+    position: relative;
+    border: 1px solid var(--border-color);
+    overflow: visible;
+    cursor: crosshair;
+}
+
+.dna-panel-overlay {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 24px;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .badge-new {
@@ -408,10 +447,30 @@ button {
 .dna-container {
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    background: transparent;
     border-radius: 24px;
     position: relative;
-    border: 1px solid var(--border-color);
+    border: none;
+}
+
+.canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: auto; /* Allow mouse drag interactions for OrbitControls */
+    
+    /* Radial gradient mask to blend edges smoothly and remove any box boundaries */
+    mask-image: radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+}
+
+.canvas-container canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .dna-dot {
@@ -469,7 +528,7 @@ button {
 .match-preview {
     position: absolute;
     bottom: 30px;
-    right: -20px;
+    left: -25px;
     background: rgba(17, 24, 39, 0.9);
     border: 1px solid var(--accent-color);
     padding: 1.5rem;
@@ -1246,7 +1305,7 @@ button {
 
 .card__article {
     position: relative;
-    border-radius: 0; /* Sharp corners */
+    border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     flex: 1 0 80px;
@@ -1372,5 +1431,321 @@ button {
     .card__data {
         left: 1.5rem;
         bottom: 1.5rem;
+    }
+}
+
+/* Premium Button System */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    color: var(--text-primary);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    user-select: none;
+}
+
+.btn-cta {
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-secondary));
+    color: #030712; /* Dark contrast */
+    border: none;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    font-weight: 700;
+}
+
+.btn-cta:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+    color: #030712;
+}
+
+.btn-cta:disabled {
+    opacity: 0.6;
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.btn-small {
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    background: rgba(17, 24, 39, 0.6);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.btn-small:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.btn-small.active {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+}
+
+.btn-direction {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(17, 24, 39, 0.6);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0;
+}
+
+.btn-direction:hover {
+    border-color: var(--accent-secondary);
+    color: var(--accent-secondary);
+    background: rgba(6, 182, 212, 0.05);
+    transform: scale(1.05);
+}
+
+.btn-direction i {
+    width: 18px;
+    height: 18px;
+}
+
+/* Advanced Filtering & Sorting Layout */
+.filters-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+}
+
+.filter-group, .sort-group {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.filter-group label, .sort-group label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.sort-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* AI HUD Panel inside DNA Visual */
+.hud-details {
+    margin-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1rem;
+}
+
+.hud-title {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+    font-weight: 700;
+}
+
+.hud-score {
+    font-size: 0.85rem;
+    color: var(--accent-secondary);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hud-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.hud-metric {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.hud-metric-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.hud-progress-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.hud-progress-bar {
+    height: 100%;
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hud-progress-bar.salary-bar {
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-secondary));
+}
+
+.hud-progress-bar.margin-bar {
+    background: linear-gradient(90deg, var(--accent-secondary), #8b5cf6);
+}
+
+.hud-progress-bar.capital-bar {
+    background: linear-gradient(90deg, var(--accent-color), #fbbf24);
+}
+
+.hud-metric-val {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: right;
+    font-family: monospace;
+}
+
+/* Toast Floating Notification */
+.toast-notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: rgba(17, 24, 39, 0.95);
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+    color: var(--text-primary);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    z-index: 11000;
+    font-weight: 500;
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* DNA Depth Perspective settings */
+.dna-container {
+    perspective: 800px;
+}
+
+.dna-dot-wrapper {
+    transform-style: preserve-3d;
+}
+
+.dna-dot {
+    will-change: transform, opacity, filter;
+}
+
+/* Modal Financial and HR Indicators */
+.modal-finance-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.finance-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.finance-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.finance-card span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.finance-card strong {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.modal-finance-capital {
+    color: var(--accent-color);
+}
+
+.modal-finance-margin {
+    color: var(--accent-secondary);
+}
+
+.modal-finance-stock {
+    color: #fbbf24;
+}
+
+.modal-finance-salary {
+    color: #8b5cf6;
+}
+
+@media (max-width: 600px) {
+    .modal-finance-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Responsive: tablet - hide DNA panel, stack center */
+@media (max-width: 1100px) {
+    .hero-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+    .hero-dna {
+        display: none;
+    }
+}
+
+/* Responsive: mobile - single column */
+@media (max-width: 768px) {
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .hero-visual {
+        height: 320px;
+    }
+    .hero-dna {
+        display: none;
     }
 }
