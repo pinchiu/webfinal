@@ -1,0 +1,352 @@
+{
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\api.php": {
+    "mtime": 1779600181.9220126,
+    "ast_hash": "4ea89cc86656a92a1035e0d228101e0e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\index.php": {
+    "mtime": 1779600216.9141178,
+    "ast_hash": "d26e3ee0782d9c17fd2112349bfea375",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\controllers\\CompanyController.php": {
+    "mtime": 1779600176.284088,
+    "ast_hash": "c8d1652a4e1f7ab185d3e4bcb220c00b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\app.js": {
+    "mtime": 1779602978.4701078,
+    "ast_hash": "e42ebdaa9224994f275c4467d70c7cd4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\controllers\\CompanyController.js": {
+    "mtime": 1779602032.547652,
+    "ast_hash": "f6c89ad6ee205f528775980bcd26f0dc",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\models\\CompanyModel.js": {
+    "mtime": 1779601137.4530532,
+    "ast_hash": "33e75a61548c72c3c5438ecf0cb3604a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\CompanyView.js": {
+    "mtime": 1779601527.305001,
+    "ast_hash": "4effb795af5eae37fce1f95e3a9f3c19",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\DnaView.js": {
+    "mtime": 1779600683.7852318,
+    "ast_hash": "2cd4e536cc394de762ef262974a93b92",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\HudView.js": {
+    "mtime": 1779600691.285699,
+    "ast_hash": "c4c8223bb1cd2a83c8ae49792ea285ea",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\ThreeView.js": {
+    "mtime": 1779603547.0526443,
+    "ast_hash": "e42dca78fa4f915fd251421b0f22f15c",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\UiView.js": {
+    "mtime": 1779603438.2569366,
+    "ast_hash": "79f55c64481a8d328c22d7fbd48e3f09",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\models\\Company.php": {
+    "mtime": 1779600170.7207904,
+    "ast_hash": "6dd114564b72f44b8ca70ec5e152d817",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\models\\Database.php": {
+    "mtime": 1779600164.6436355,
+    "ast_hash": "f300c92c81e8c3dab3682185e88d0b5c",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\index.html": {
+    "mtime": 1779600713.8992207,
+    "ast_hash": "1473b8aacca2eb79adfcf698483bac79",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\html\\index.html": {
+    "mtime": 1779603727.597589,
+    "ast_hash": "fa19a625dbe232ddc8c2018f56110ac3",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\license.txt": {
+    "mtime": 1779170829.0,
+    "ast_hash": "ed537a4eacc4832147b3fc3086cd0207",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.002_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "35e25d59126d8762bdab0a2d6d05c647",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.023_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "dbc97bc78cce3f7056d162f3c04602e3",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.024_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "ca9a2f465268eb9d4c5cb2bcebb8f543",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_0_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "fdb7ef987402608dbc54f44b619b281c",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_10_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "548382129f9e24d003c94b9d1ff03d07",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_11_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "fe9af7cf6acea473368d4fb62afd67d0",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_12_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "91a62bc77f92b7d4542861d1d4c7fbb9",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_13_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "343d72da2041ff61c57498ef8f691342",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_14_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "8e822ebe111e9b682db992e90a3dd421",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_15_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "6bc1cb84fed2ebea1e20726c333829cb",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_16_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "d2ffd8d27466db9a830334168f0933f2",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_17_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "5c9f88375cf0d9e4789e6c6b1a60734f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_18_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "c8149f06706a927afb48b65d3a2fe119",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_18_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "3b4374c710e54dc8534150fcf6ae7873",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_19_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "e9070b535a2e0c3012e63398dc554798",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_1_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "2fa68839191b9359a1767ab20b52f1bb",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_20_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "064b878ad81554b8e07a5d5fc6c2cc67",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_21_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "3f76f6f055adc052cc1805adea9085bd",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_22_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "316d2a9d05ec56c9fc8563c9b078e686",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_23_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "0c247143b91640b400714072e9157c0f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_24_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "5baf1a6d1c3125fbb07037aab3e2eb68",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_24_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "8380d7402e2ecfb8442b42a9b20c16b8",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_25_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "dfe2895e1d12f30f7d9554ba147a3eae",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_26_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "f153ab4eca07bceeaa1088c0dc0c652a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_27_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "f0034cbcfdda3dc405de4f7fe271b2c6",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_27_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "78dbd71aa070e0ca86ee9a8d15b1143a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_28_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "ccaedc0a4eba6b67fe3ab83302bc1417",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_29_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "018d596a220604a594cd0fd69f7e87f1",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_2_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "059ab594475b338f9d5bad37c548074d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_30_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "8c49cb47ddd0888be15617c9e6c990c5",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_31_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "09331dfefd9056ca78e57b8a33c6cc4e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_32_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "7e75c0e35c6915ef3ff069c0698f8b4b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_33_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "dc4464ab39ad4be689fd135e84cd071c",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_34_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "d4220ce14c37a9a67d06fab4932dab79",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_35_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "5a951d0aad494a0584516a4926eb9451",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_36_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "5f0e4b3ca11fe7301f5fedae83c14cb6",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_39_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "144f2ccb46548f1a8c180df24f4acdc4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_3_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "164ae623a0796a8b4c1c629d925e6576",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_40_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "85fa9a240ae54d6b61b4b5140e7a5c7d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_4_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "1f60e118c24afa38a7a5324661cf9b1b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_4_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "b35299d3e99267154505735d894ed51e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_5_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "7ca558555f7122727ed06e962e6b3bda",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_6_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "4e066d93f54588fe724587fed0e20f95",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_7_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "8846216e98f2c57de8c6bb33fc38a5ba",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_8_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "92ed78d0989371c66b6451ea81f92870",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_9_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "d0faa9c1663c816a1697721241e1009d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_9_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "cbc546984ead36d7c006e1c607980ef4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "ff9fe4dfcc6d544165602e0eb2c6fda5",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "fd6f9bce75d3515756debcb5ca12a898",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material_metallicRoughness.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "82a688151ea06c3ede3706efa564ae47",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Tasten_2_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "cc4c89c56df059f0de2e70540fc8077f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\.agents\\rules\\graphify.md": {
+    "mtime": 1779601732.3055413,
+    "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\.agents\\workflows\\graphify.md": {
+    "mtime": 1779601732.3065505,
+    "ast_hash": "84de69efd46ab0b8430393bd4188f8f2",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\DockingView.js": {
+    "mtime": 1779603857.727939,
+    "ast_hash": "aa3597245f73a5cf877579e753cbdea3",
+    "semantic_hash": ""
+  }
+}

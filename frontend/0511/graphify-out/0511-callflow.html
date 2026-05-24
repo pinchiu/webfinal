@@ -1,0 +1,3000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0511 — Complete Call Flow &amp; Architecture Documentation</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #0f172a; --surface: #1e293b; --border: #334155;
+  --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+  --warn: #fbbf24; --err: #f87171; --ok: #34d399;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+h1 { font-size: 2.4rem; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { font-size: 1.7rem; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+h3 { font-size: 1.25rem; margin: 32px 0 12px; color: var(--accent); }
+h4 { font-size: 1.05rem; margin: 20px 0 8px; color: var(--warn); }
+p { margin: 8px 0; color: var(--muted); }
+.subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 32px; }
+.mermaid { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 20px 0; overflow-x: auto; position: relative; }
+.mermaid.is-enhanced { padding: 0; overflow: hidden; min-height: 260px; }
+.mermaid-viewport { padding: 54px 24px 24px; overflow: hidden; cursor: grab; touch-action: none; min-height: 260px; }
+.mermaid-viewport.is-dragging { cursor: grabbing; }
+.mermaid-viewport svg { max-width: none !important; height: auto; transform-origin: 0 0; transition: transform 120ms ease; }
+.mermaid-toolbar { position: absolute; top: 10px; right: 10px; z-index: 3; display: flex; align-items: center; gap: 6px; padding: 6px; background: rgba(15,23,42,0.92); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.28); }
+.mermaid-toolbar button, .mermaid-toolbar .zoom-level { height: 28px; min-width: 32px; border: 1px solid var(--border); border-radius: 6px; background: #1e293b; color: var(--text); font: 600 0.78rem system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; }
+.mermaid-toolbar button { cursor: pointer; }
+.mermaid-toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+.mermaid-toolbar .zoom-level { min-width: 52px; color: var(--muted); background: transparent; }
+.call-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+.call-table th { background: #1a2744; color: var(--accent); text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+.call-table td { padding: 8px 14px; border: 1px solid var(--border); vertical-align: top; }
+.call-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+.tag-async { background: #7c3aed33; color: #a78bfa; }
+.tag-class { background: #05966933; color: var(--ok); }
+.tag-func { background: #2563eb33; color: var(--accent); }
+.tag-cmd { background: #d9770633; color: var(--warn); }
+.tag-endpoint { background: #dc262633; color: var(--err); }
+.tag-hook { background: #db277733; color: #f472b6; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 16px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin: 16px 0; }
+.arrow-chain { font-family: 'Fira Code', monospace; font-size: 0.85rem; color: var(--accent); padding: 10px; background: rgba(56,189,248,0.06); border-radius: 6px; }
+code { font-family: 'Fira Code', 'Cascadia Code', monospace; background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 3px; font-size: 0.88em; }
+ul, ol { margin: 8px 0 8px 24px; color: var(--muted); }
+li { margin: 4px 0; }
+a { color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+.nav { position: sticky; top: 0; background: var(--bg); z-index: 10; padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+@media (max-width: 768px) { .container { padding: 16px; } h1 { font-size: 1.8rem; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>0511 — Complete Call Flow &amp; Architecture Documentation</h1>
+<p class="subtitle">Generated from graphify knowledge graph: 209 nodes, 241 edges, 24 communities. Commit: cc02eac</p>
+
+<div class="nav">
+    <a href="#overview">Architecture Overview</a>
+    <a href="#analysis-clustering">Analysis &amp; Clustering</a>
+    <a href="#cli-skills">CLI &amp; Skill Installers</a>
+    <a href="#serve-api">Serving API</a>
+    <a href="#community-4">Community 4</a>
+    <a href="#community-5">Community 5</a>
+    <a href="#community-7">Community 7</a>
+    <a href="#community-8">Community 8</a>
+    <a href="#community-10">Community 10</a>
+    <a href="#community-9">Community 9</a>
+    <a href="#community-22">Community 22</a>
+    <a href="#community-12">Community 12</a>
+    <a href="#community-13">Community 13</a>
+    <a href="#community-14">Community 14</a>
+    <a href="#community-23">Community 23</a>
+    <a href="#other">Other</a>
+</div>
+
+<!-- ====== Architecture Overview ====== -->
+<h2 id="overview">1. Architecture Overview</h2>
+
+<div class="mermaid">
+
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>17 nodes</small>")
+    class ANALYSIS_CLUSTERING_C79796DA module;
+    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>44 nodes</small>")
+    class CLI_SKILLS_9964CBB8 module;
+    SERVE_API_35EC8E86("Serving API<br/><small>41 nodes</small>")
+    class SERVE_API_35EC8E86 module;
+    COMMUNITY_4_AC2DC2A9("Community 4<br/><small>14 nodes</small>")
+    class COMMUNITY_4_AC2DC2A9 module;
+    COMMUNITY_5_2966028D("Community 5<br/><small>12 nodes</small>")
+    class COMMUNITY_5_2966028D module;
+    COMMUNITY_7_989501FC("Community 7<br/><small>12 nodes</small>")
+    class COMMUNITY_7_989501FC module;
+    COMMUNITY_8_9FC4FAC0("Community 8<br/><small>11 nodes</small>")
+    class COMMUNITY_8_9FC4FAC0 module;
+    COMMUNITY_10_48432F59("Community 10<br/><small>9 nodes</small>")
+    class COMMUNITY_10_48432F59 module;
+    COMMUNITY_9_1D55D1EE("Community 9<br/><small>9 nodes</small>")
+    class COMMUNITY_9_1D55D1EE module;
+    COMMUNITY_22_65038249("Community 22<br/><small>8 nodes</small>")
+    class COMMUNITY_22_65038249 module;
+    COMMUNITY_12_82F13F05("Community 12<br/><small>7 nodes</small>")
+    class COMMUNITY_12_82F13F05 module;
+    COMMUNITY_13_E329587C("Community 13<br/><small>6 nodes</small>")
+    class COMMUNITY_13_E329587C module;
+    COMMUNITY_14_21BC55C3("Community 14<br/><small>4 nodes</small>")
+    class COMMUNITY_14_21BC55C3 module;
+    COMMUNITY_23_58D9DE5D("Community 23<br/><small>4 nodes</small>")
+    class COMMUNITY_23_58D9DE5D module;
+    OTHER_D0941E68("Other<br/><small>11 nodes</small>")
+    class OTHER_D0941E68 module;
+    SERVE_API_35EC8E86 -->|calls x2| ANALYSIS_CLUSTERING_C79796DA
+    ANALYSIS_CLUSTERING_C79796DA -->|contains| SERVE_API_35EC8E86
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h4>Architecture Layers</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
+      <tr><td>Analysis &amp; Clustering</td><td>17</td><td><code>3</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>44</td><td><code>0, 6, 11</code></td></tr><tr><td>Serving API</td><td>41</td><td><code>1, 2, 17, 18</code></td></tr><tr><td>Community 4</td><td>14</td><td><code>4</code></td></tr><tr><td>Community 5</td><td>12</td><td><code>5</code></td></tr><tr><td>Community 7</td><td>12</td><td><code>7</code></td></tr><tr><td>Community 8</td><td>11</td><td><code>8</code></td></tr><tr><td>Community 10</td><td>9</td><td><code>10</code></td></tr><tr><td>Community 9</td><td>9</td><td><code>9</code></td></tr><tr><td>Community 22</td><td>8</td><td><code>22</code></td></tr><tr><td>Community 12</td><td>7</td><td><code>12</code></td></tr><tr><td>Community 13</td><td>6</td><td><code>13</code></td></tr><tr><td>Community 14</td><td>4</td><td><code>14</code></td></tr><tr><td>Community 23</td><td>4</td><td><code>23</code></td></tr><tr><td>Other</td><td>11</td><td><code>15, 16, 20, 21, 19</code></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Core Flow</h4>
+    <div class="arrow-chain">CLI &amp; Skill Installers -&gt; Analysis &amp; Clustering -&gt; Serving API -&gt; Community 4 -&gt; Community 5 -&gt; Community 7 -&gt; Community 8</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card">
+    <h4>Graph Report Highlights</h4>
+    <ul>
+      <li>209 nodes · 241 edges · 24 communities (9 shown, 15 thin omitted)</li>
+      <li>Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS</li>
+      <li>Token cost: 0 input · 0 output</li>
+      <li>1. `CompanyModel` - 13 edges</li>
+      <li>2. `DesignSystemGenerator` - 11 edges</li>
+      <li>3. `CompanyView` - 11 edges</li>
+    </ul>
+  </div>
+</div>
+<hr>
+<!-- ====== 2. Analysis & Clustering ====== -->
+<h2 id="analysis-clustering">2. Analysis &amp; Clustering</h2>
+<p>Analysis &amp; Clustering groups implementation around design, systempy, gemini, skills, mostly in ui-ux-pro-max/scripts/design_system.py. This section covers 17 nodes and 23 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Analysis &amp; Clustering (17 nodes, 23 edges)
+    scripts_design_system_persist_design_system_fd9b56b0("persist_design_system()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_format_ascii_box_7a0548cf("format_ascii_box()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_format_markdown_c2c398a5("format_markdown()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_format_page_override_md_163a851e("format_page_override_md()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_generate_intelligent_overr_72d8bbf1("generate intelligent overrides()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_generate_design_system_51023b66("generate_design_system()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_format_master_md_1c72af35("format_master_md()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_detect_page_type_ccea337a("_detect_page_type()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    gemini_skills_ui_ux_pro_max_scripts_design_syste_e183fcc3("design_system.py")
+    scripts_design_system_rationale_1021_1524eb3a("Detect page type from context and searc...<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_rationale_806_afe0ccf7("Format a page-specific override file wi...<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_rationale_243_06f5ba30("Format design system as ASCII box with...<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_rationale_543_d9fcae3d("Format design system as MASTER.md with...<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_rationale_368_5a419633("Format design system as markdown.<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_rationale_915_b03fafff("Generate intelligent overrides based on...<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_rationale_464_875c66cf("Main entry point for design system gene...<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_rationale_492_221a01be("Persist design system to design-system/...<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    scripts_design_system_format_ascii_box_7a0548cf -->|calls| scripts_design_system_generate_design_system_51023b66
+    scripts_design_system_format_markdown_c2c398a5 -->|calls| scripts_design_system_generate_design_system_51023b66
+    scripts_design_system_generate_design_system_51023b66 -->|calls| scripts_design_system_persist_design_system_fd9b56b0
+    scripts_design_system_persist_design_system_fd9b56b0 -->|calls| scripts_design_system_format_master_md_1c72af35
+    scripts_design_system_persist_design_system_fd9b56b0 -->|calls| scripts_design_system_format_page_override_md_163a851e
+    scripts_design_system_format_page_override_md_163a851e -->|calls| scripts_design_system_generate_intelligent_overr_72d8bbf1
+    scripts_design_system_generate_intelligent_overr_72d8bbf1 -->|calls| scripts_design_system_detect_page_type_ccea337a
+    class scripts_design_system_persist_design_system_fd9b56b0 function;
+    class scripts_design_system_format_ascii_box_7a0548cf function;
+    class scripts_design_system_format_markdown_c2c398a5 function;
+    class scripts_design_system_format_page_override_md_163a851e function;
+    class scripts_design_system_generate_intelligent_overr_72d8bbf1 function;
+    class scripts_design_system_generate_design_system_51023b66 function;
+    class scripts_design_system_format_master_md_1c72af35 function;
+    class scripts_design_system_detect_page_type_ccea337a function;
+    class gemini_skills_ui_ux_pro_max_scripts_design_syste_e183fcc3 module;
+    class scripts_design_system_rationale_1021_1524eb3a concept;
+    class scripts_design_system_rationale_806_afe0ccf7 concept;
+    class scripts_design_system_rationale_243_06f5ba30 concept;
+    class scripts_design_system_rationale_543_d9fcae3d concept;
+    class scripts_design_system_rationale_368_5a419633 concept;
+    class scripts_design_system_rationale_915_b03fafff concept;
+    class scripts_design_system_rationale_464_875c66cf concept;
+    class scripts_design_system_rationale_492_221a01be concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>design_system.py</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module file in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>format_ascii_box()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>generate_design_system()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>format_ascii_box() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>format_markdown()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>generate_design_system()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>Exports documentation data to a target format.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>generate_design_system()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>format_ascii_box()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br><code>format_markdown()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>persist_design_system()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>generate_design_system() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>persist_design_system()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>generate_design_system()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>format_master_md()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br><code>format_page_override_md()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>persist_design_system() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>format_master_md()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>persist_design_system()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>format_master_md() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>format_page_override_md()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>persist_design_system()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>generate intelligent overrides()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>_generate_intelligent_overrides()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>format_page_override_md()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>_detect_page_type()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>_generate_intelligent_overrides() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>_detect_page_type()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>generate intelligent overrides()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>Organizes documentation pages, navigation, or content lookup.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Format design system as ASCII box with emojis (MCP-style).</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Format design system as ASCII box with emojis (MCP-style)..</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Format design system as markdown.</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Format design system as markdown..</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>Main entry point for design system generation.      Args:         query: Sear</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Main entry point for design system generation.      Args:         query: Sear.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Persist design system to design-system/&lt;project&gt;/ folder using Master + Override</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Persist design system to design-system/&lt;project&gt;/ folder using Master + Override.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>Format design system as MASTER.md with hierarchical override logic.</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Format design system as MASTER.md with hierarchical override logic..</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>Format a page-specific override file with intelligent AI-generated content.</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Format a page-specific override file with intelligent AI-generated content..</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Generate intelligent overrides based on page type using layered search.</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Generate intelligent overrides based on page type using layered search..</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Detect page type from context and search results.</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Detect page type from context and search results..</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>ui-ux-pro-max/scripts/design_system.py</code></td><td>17 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x8, explains x8, calls x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 3. CLI & Skill Installers ====== -->
+<h2 id="cli-skills">3. CLI &amp; Skill Installers</h2>
+<p>CLI &amp; Skill Installers groups implementation around pro, max, skills, skillmd, mostly in skills/ui-ux-pro-max/SKILL.md. This section covers 44 nodes and 43 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: CLI &amp; Skill Installers (44 nodes, 43 edges)
+    ui_ux_pro_max_skill_ui_ux_pro_max_4839712b("ui-ux-pro-max<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_how_to_use_this_skill_0c797e7e("How to Use This Skill<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_pre_delivery_checklist_9818882c("Pre-Delivery Checklist<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_common_rules_for_professiona_580e7d96("Common Rules for Professional UI<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_example_workflow_af355d39("Example Workflow<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_prerequisites_6ea6860b("Prerequisites<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_search_reference_359da487("Search Reference<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_step_2_generate_design_syste_e1bfdbd4("Step 2: Generate Design System (REQUIRED)<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_step_2b_persist_design_syste_c90bc96c("Step 2b: Persist Design System (Master...<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_output_formats_21010a01("Output Formats<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_step_2_generate_design_syste_89f69cc0("Step 2: Generate Design System (REQUIRED)<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_step_3_supplement_with_detai_9a70414f("Step 3: Supplement with Detailed Search...<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_step_3_supplement_with_detai_3fecc845("Step 3: Supplement with Detailed Search...<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_step_4_stack_guidelines_96e24197("Step 4: Stack Guidelines<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_step_4_stack_guidelines_defa_b7cbc5dc("Step 4: Stack Guidelines (Default: html...<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_accessibility_8c770c5a("Accessibility<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_available_domains_3cf02702("Available Domains<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_available_stacks_18f68990("Available Stacks<br/><small>skills/ui-ux-pro-max/SKILL.md</small>")
+    ui_ux_pro_max_skill_ui_ux_pro_max_4839712b -->|contains| ui_ux_pro_max_skill_prerequisites_6ea6860b
+    ui_ux_pro_max_skill_ui_ux_pro_max_4839712b -->|contains| ui_ux_pro_max_skill_how_to_use_this_skill_0c797e7e
+    ui_ux_pro_max_skill_ui_ux_pro_max_4839712b -->|contains| ui_ux_pro_max_skill_search_reference_359da487
+    ui_ux_pro_max_skill_ui_ux_pro_max_4839712b -->|contains| ui_ux_pro_max_skill_example_workflow_af355d39
+    ui_ux_pro_max_skill_ui_ux_pro_max_4839712b -->|contains| ui_ux_pro_max_skill_output_formats_21010a01
+    ui_ux_pro_max_skill_ui_ux_pro_max_4839712b -->|contains| ui_ux_pro_max_skill_common_rules_for_professiona_580e7d96
+    ui_ux_pro_max_skill_ui_ux_pro_max_4839712b -->|contains| ui_ux_pro_max_skill_pre_delivery_checklist_9818882c
+    ui_ux_pro_max_skill_how_to_use_this_skill_0c797e7e -->|contains| ui_ux_pro_max_skill_step_2_generate_design_syste_e1bfdbd4
+    ui_ux_pro_max_skill_how_to_use_this_skill_0c797e7e -->|contains| ui_ux_pro_max_skill_step_2b_persist_design_syste_c90bc96c
+    ui_ux_pro_max_skill_how_to_use_this_skill_0c797e7e -->|contains| ui_ux_pro_max_skill_step_3_supplement_with_detai_9a70414f
+    ui_ux_pro_max_skill_how_to_use_this_skill_0c797e7e -->|contains| ui_ux_pro_max_skill_step_4_stack_guidelines_defa_b7cbc5dc
+    ui_ux_pro_max_skill_search_reference_359da487 -->|contains| ui_ux_pro_max_skill_available_domains_3cf02702
+    ui_ux_pro_max_skill_search_reference_359da487 -->|contains| ui_ux_pro_max_skill_available_stacks_18f68990
+    ui_ux_pro_max_skill_example_workflow_af355d39 -->|contains| ui_ux_pro_max_skill_step_2_generate_design_syste_89f69cc0
+    ui_ux_pro_max_skill_example_workflow_af355d39 -->|contains| ui_ux_pro_max_skill_step_3_supplement_with_detai_3fecc845
+    ui_ux_pro_max_skill_example_workflow_af355d39 -->|contains| ui_ux_pro_max_skill_step_4_stack_guidelines_96e24197
+    ui_ux_pro_max_skill_pre_delivery_checklist_9818882c -->|contains| ui_ux_pro_max_skill_accessibility_8c770c5a
+    %% Omitted for readability: 26 nodes, 0 edges
+    class ui_ux_pro_max_skill_ui_ux_pro_max_4839712b concept;
+    class ui_ux_pro_max_skill_how_to_use_this_skill_0c797e7e concept;
+    class ui_ux_pro_max_skill_pre_delivery_checklist_9818882c concept;
+    class ui_ux_pro_max_skill_common_rules_for_professiona_580e7d96 concept;
+    class ui_ux_pro_max_skill_example_workflow_af355d39 concept;
+    class ui_ux_pro_max_skill_prerequisites_6ea6860b concept;
+    class ui_ux_pro_max_skill_search_reference_359da487 concept;
+    class ui_ux_pro_max_skill_step_2_generate_design_syste_e1bfdbd4 concept;
+    class ui_ux_pro_max_skill_step_2b_persist_design_syste_c90bc96c concept;
+    class ui_ux_pro_max_skill_output_formats_21010a01 concept;
+    class ui_ux_pro_max_skill_step_2_generate_design_syste_89f69cc0 concept;
+    class ui_ux_pro_max_skill_step_3_supplement_with_detai_9a70414f concept;
+    class ui_ux_pro_max_skill_step_3_supplement_with_detai_3fecc845 concept;
+    class ui_ux_pro_max_skill_step_4_stack_guidelines_96e24197 concept;
+    class ui_ux_pro_max_skill_step_4_stack_guidelines_defa_b7cbc5dc concept;
+    class ui_ux_pro_max_skill_accessibility_8c770c5a concept;
+    class ui_ux_pro_max_skill_available_domains_3cf02702 concept;
+    class ui_ux_pro_max_skill_available_stacks_18f68990 concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>SKILL.md</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing SKILL.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>ui-ux-pro-max</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing ui-ux-pro-max.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Prerequisites</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Prerequisites.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>code:bash (python3 --version || python --version)</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing code:bash (python3 --version || python --version).</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>code:bash (brew install python3)</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing code:bash (brew install python3).</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>code:bash (sudo apt update &amp;&amp; sudo apt install python3)</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing code:bash (sudo apt update &amp;&amp; sudo apt install python3).</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>code:powershell (winget install Python.Python.3.12)</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing code:powershell (winget install Python.Python.3.12).</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>Search Reference</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Search Reference.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Available Domains</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Available Domains.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Available Stacks</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Available Stacks.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Output Formats</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Output Formats.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>code:bash (# ASCII box (default) - best for terminal display)</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing code:bash (# ASCII box (default) - best for terminal display).</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Tips for Better Results</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Tips for Better Results.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>Common Rules for Professional UI</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Common Rules for Professional UI.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>Icons &amp; Visual Elements</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Icons &amp; Visual Elements.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Interaction &amp; Cursor</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Interaction &amp; Cursor.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Light/Dark Mode Contrast</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Light/Dark Mode Contrast.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Layout &amp; Spacing</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Layout &amp; Spacing.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Pre-Delivery Checklist</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Pre-Delivery Checklist.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Visual Quality</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Visual Quality.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>Interaction</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Interaction.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>Light/Dark Mode</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Light/Dark Mode.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>Layout</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Layout.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>Accessibility</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Accessibility.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>How to Use This Skill</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing How to Use This Skill.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>Step 1: Analyze User Requirements</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Step 1: Analyze User Requirements.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>Step 2: Generate Design System (REQUIRED)</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Step 2: Generate Design System (REQUIRED).</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>code:bash (python3 skills/ui-ux-pro-max/scripts/search.py &quot;&lt;product_typ)</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing code:bash (python3 skills/ui-ux-pro-max/scripts/search.py &quot;&lt;product_typ).</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>code:bash (python3 skills/ui-ux-pro-max/scripts/search.py &quot;beauty spa w)</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing code:bash (python3 skills/ui-ux-pro-max/scripts/search.py &quot;beauty spa w).</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>Step 2b: Persist Design System (Master + Overrides Pattern)</code><br><small style="color:var(--muted)">skills/ui-ux-pro-max/SKILL.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Step 2b: Persist Design System (Master + Overrides Pattern).</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>skills/ui-ux-pro-max/SKILL.md</code></td><td>44 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x43. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 4. Serving API ====== -->
+<h2 id="serve-api">4. Serving API</h2>
+<p>Serving API groups implementation around gemini, skills, pro, max, mostly in ui-ux-pro-max/scripts/core.py, ui-ux-pro-max/scripts/design_system.py, ui-ux-pro-max/scripts/search.py. This section covers 41 nodes and 52 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Serving API (41 nodes, 52 edges)
+    subgraph serve_api_ui_ux_pro_max_scripts_core_py_3c5dc460["ui-ux-pro-max/scripts/core.py"]
+        scripts_core_bm25_afe904c3("BM25<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+        scripts_core_bm25_tokenize_ef0a1bee("tokenize()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+        scripts_core_detect_domain_68f0ecac("detect_domain()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+        scripts_core_load_csv_c38191df("_load_csv()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+        scripts_core_bm25_init_e3be247c("__init__()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+        scripts_core_bm25_fit_8ef144bd("fit()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+        scripts_core_bm25_score_dc5bc3aa("score()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+        scripts_core_search_csv_31a9a65d("_search_csv()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+        scripts_core_search_98605f26("search()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+        scripts_core_search_stack_136da7c3("search_stack()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
+    end
+    subgraph serve_api_ui_ux_pro_max_scripts_design_system_py_ea0472c3["ui-ux-pro-max/scripts/design_system.py"]
+        scripts_design_system_designsystemgenerator_64b229c1("DesignSystemGenerator<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+        scripts_design_system_designsystemgenerator_extr_07dc6aac("_extract_results()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+        scripts_design_system_designsystemgenerator_init_0e97438c("__init__()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+        scripts_design_system_designsystemgenerator_load_88d91230("_load_reasoning()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+        scripts_design_system_designsystemgenerator_mult_f3549141("_multi_domain_search()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+        scripts_design_system_designsystemgenerator_find_b0713406("_find_reasoning_rule()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+        scripts_design_system_designsystemgenerator_appl_305162e4("_apply_reasoning()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+        scripts_design_system_designsystemgenerator_sele_161addd4("_select_best_match()<br/><small>ui-ux-pro-max/scripts/design_system.py</small>")
+    end
+    scripts_core_bm25_afe904c3 -->|method| scripts_core_bm25_init_e3be247c
+    scripts_core_bm25_afe904c3 -->|method| scripts_core_bm25_tokenize_ef0a1bee
+    scripts_core_bm25_afe904c3 -->|method| scripts_core_bm25_fit_8ef144bd
+    scripts_core_bm25_afe904c3 -->|method| scripts_core_bm25_score_dc5bc3aa
+    scripts_core_bm25_afe904c3 -->|calls| scripts_core_search_csv_31a9a65d
+    scripts_core_bm25_tokenize_ef0a1bee -->|calls| scripts_core_bm25_fit_8ef144bd
+    scripts_core_bm25_tokenize_ef0a1bee -->|calls| scripts_core_bm25_score_dc5bc3aa
+    scripts_core_bm25_fit_8ef144bd -->|calls| scripts_core_search_csv_31a9a65d
+    scripts_core_bm25_score_dc5bc3aa -->|calls| scripts_core_search_csv_31a9a65d
+    scripts_core_load_csv_c38191df -->|calls| scripts_core_search_csv_31a9a65d
+    scripts_core_search_csv_31a9a65d -->|calls| scripts_core_search_98605f26
+    scripts_core_search_csv_31a9a65d -->|calls| scripts_core_search_stack_136da7c3
+    scripts_core_detect_domain_68f0ecac -->|calls| scripts_core_search_98605f26
+    scripts_design_system_designsystemgenerator_64b229c1 -->|method| scripts_design_system_designsystemgenerator_init_0e97438c
+    scripts_design_system_designsystemgenerator_64b229c1 -->|method| scripts_design_system_designsystemgenerator_load_88d91230
+    scripts_design_system_designsystemgenerator_64b229c1 -->|method| scripts_design_system_designsystemgenerator_mult_f3549141
+    scripts_design_system_designsystemgenerator_64b229c1 -->|method| scripts_design_system_designsystemgenerator_find_b0713406
+    scripts_design_system_designsystemgenerator_64b229c1 -->|method| scripts_design_system_designsystemgenerator_appl_305162e4
+    scripts_design_system_designsystemgenerator_64b229c1 -->|method| scripts_design_system_designsystemgenerator_sele_161addd4
+    scripts_design_system_designsystemgenerator_64b229c1 -->|method| scripts_design_system_designsystemgenerator_extr_07dc6aac
+    scripts_design_system_designsystemgenerator_init_0e97438c -->|calls| scripts_design_system_designsystemgenerator_load_88d91230
+    scripts_design_system_designsystemgenerator_find_b0713406 -->|calls| scripts_design_system_designsystemgenerator_appl_305162e4
+    %% Omitted for readability: 23 nodes, 0 edges
+    class scripts_core_bm25_afe904c3 klass;
+    class scripts_core_bm25_tokenize_ef0a1bee function;
+    class scripts_core_detect_domain_68f0ecac function;
+    class scripts_core_load_csv_c38191df function;
+    class scripts_core_bm25_init_e3be247c function;
+    class scripts_core_bm25_fit_8ef144bd function;
+    class scripts_core_bm25_score_dc5bc3aa function;
+    class scripts_core_search_csv_31a9a65d function;
+    class scripts_core_search_98605f26 function;
+    class scripts_core_search_stack_136da7c3 function;
+    class scripts_design_system_designsystemgenerator_64b229c1 klass;
+    class scripts_design_system_designsystemgenerator_extr_07dc6aac function;
+    class scripts_design_system_designsystemgenerator_init_0e97438c function;
+    class scripts_design_system_designsystemgenerator_load_88d91230 function;
+    class scripts_design_system_designsystemgenerator_mult_f3549141 function;
+    class scripts_design_system_designsystemgenerator_find_b0713406 function;
+    class scripts_design_system_designsystemgenerator_appl_305162e4 function;
+    class scripts_design_system_designsystemgenerator_sele_161addd4 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>core.py</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module file in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>BM25</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br><code>_search_csv()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br><code>fit()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br>+2 more</td>
+  <td>BM25 node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>BM25</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.__init__() node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.tokenize()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>BM25</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><code>fit()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br><code>score()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td>.tokenize() node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.fit()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>BM25</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br><code>tokenize()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><code>_search_csv()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td>.fit() node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.score()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>BM25</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br><code>tokenize()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><code>_search_csv()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td>.score() node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>_load_csv()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>_search_csv()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td>_load_csv() node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>_search_csv()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_load_csv()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br><code>BM25</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br><code>fit()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br>+1 more</td>
+  <td><code>search()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br><code>search_stack()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td>_search_csv() node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>detect_domain()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>search()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td>detect_domain() node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>search()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_search_csv()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small><br><code>detect_domain()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>search() node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>search_stack()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_search_csv()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>search_stack() node in ui-ux-pro-max/scripts/core.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>BM25 ranking algorithm for text search</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for BM25 ranking algorithm for text search.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Lowercase, split, remove punctuation, filter short words</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Lowercase, split, remove punctuation, filter short words.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>Build BM25 index from documents</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Build BM25 index from documents.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>Score all documents against query</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Score all documents against query.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Load CSV and return list of dicts</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Load CSV and return list of dicts.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Core search function using BM25</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Core search function using BM25.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Auto-detect the most relevant domain from query</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Auto-detect the most relevant domain from query.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Main search function with auto-domain detection</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Main search function with auto-domain detection.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>Search stack-specific guidelines</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/core.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Search stack-specific guidelines.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>DesignSystemGenerator</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br><code>_apply_reasoning()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br><code>_extract_results()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br>+5 more</td>
+  <td>DesignSystemGenerator node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DesignSystemGenerator</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>_load_reasoning()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>.__init__() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>._load_reasoning()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br><code>DesignSystemGenerator</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>._load_reasoning() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>._multi_domain_search()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DesignSystemGenerator</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>generate()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>._multi_domain_search() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>._find_reasoning_rule()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DesignSystemGenerator</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>_apply_reasoning()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>._find_reasoning_rule() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>._apply_reasoning()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_find_reasoning_rule()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br><code>DesignSystemGenerator</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>generate()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>._apply_reasoning() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>._select_best_match()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DesignSystemGenerator</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>generate()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>._select_best_match() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>._extract_results()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DesignSystemGenerator</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><code>generate()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td>._extract_results() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>.generate()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>_apply_reasoning()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br><code>_extract_results()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br><code>_multi_domain_search()</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small><br>+2 more</td>
+  <td>No direct outbound edge</td>
+  <td>.generate() node in ui-ux-pro-max/scripts/design_system.py.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>Generates design system recommendations from aggregated searches.</code><br><small style="color:var(--muted)">ui-ux-pro-max/scripts/design_system.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Generates design system recommendations from aggregated searches..</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>ui-ux-pro-max/scripts/core.py</code></td><td>20 nodes</td></tr>
+<tr><td><code>ui-ux-pro-max/scripts/design_system.py</code></td><td>17 nodes</td></tr>
+<tr><td><code>ui-ux-pro-max/scripts/search.py</code></td><td>3 nodes</td></tr>
+<tr><td><code>api.php</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: explains x18, calls x15, method x12, contains x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 5. Community 4 ====== -->
+<h2 id="community-4">5. Community 4</h2>
+<p>Community 4 groups implementation around companymodeljs, models, companymodel, constructor, mostly in js/models/CompanyModel.js. This section covers 14 nodes and 16 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 4 (14 nodes, 16 edges)
+    models_companymodel_companymodel_625956ec("CompanyModel<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_notifychange_b54c0f74("notifyChange()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_normalizedata_7834b685("normalizeData()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_constructor_4df3f2e6("constructor()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_addchangelisten_5343b9b6("addChangeListener()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_setfilter_53041b80("setFilter()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_resetfilters_f7d6ee02("resetFilters()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_getfilters_2854ead8("getFilters()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_parsecapital_61a2562a("parseCapital()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_extractcityfrom_d0867205("extractCityFromAddress()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_loadcompanies_4a62a77f("loadCompanies()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_getfilteredands_30e8c1c9("getFilteredAndSortedCompanies()<br/><small>js/models/CompanyModel.js</small>")
+    models_companymodel_companymodel_getallcompanies_3b6af7b2("getAllCompanies()<br/><small>js/models/CompanyModel.js</small>")
+    js_models_companymodel_js_7087ace1("CompanyModel.js")
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_constructor_4df3f2e6
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_addchangelisten_5343b9b6
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_notifychange_b54c0f74
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_setfilter_53041b80
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_resetfilters_f7d6ee02
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_getfilters_2854ead8
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_parsecapital_61a2562a
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_extractcityfrom_d0867205
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_normalizedata_7834b685
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_loadcompanies_4a62a77f
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_getfilteredands_30e8c1c9
+    models_companymodel_companymodel_625956ec -->|method| models_companymodel_companymodel_getallcompanies_3b6af7b2
+    models_companymodel_companymodel_notifychange_b54c0f74 -->|calls| models_companymodel_companymodel_setfilter_53041b80
+    models_companymodel_companymodel_notifychange_b54c0f74 -->|calls| models_companymodel_companymodel_resetfilters_f7d6ee02
+    models_companymodel_companymodel_normalizedata_7834b685 -->|calls| models_companymodel_companymodel_loadcompanies_4a62a77f
+    class models_companymodel_companymodel_625956ec klass;
+    class models_companymodel_companymodel_notifychange_b54c0f74 function;
+    class models_companymodel_companymodel_normalizedata_7834b685 function;
+    class models_companymodel_companymodel_constructor_4df3f2e6 function;
+    class models_companymodel_companymodel_addchangelisten_5343b9b6 function;
+    class models_companymodel_companymodel_setfilter_53041b80 function;
+    class models_companymodel_companymodel_resetfilters_f7d6ee02 function;
+    class models_companymodel_companymodel_getfilters_2854ead8 function;
+    class models_companymodel_companymodel_parsecapital_61a2562a api;
+    class models_companymodel_companymodel_extractcityfrom_d0867205 function;
+    class models_companymodel_companymodel_loadcompanies_4a62a77f function;
+    class models_companymodel_companymodel_getfilteredands_30e8c1c9 function;
+    class models_companymodel_companymodel_getallcompanies_3b6af7b2 function;
+    class js_models_companymodel_js_7087ace1 klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>CompanyModel.js</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CompanyModel.js node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>addChangeListener()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small><br><code>constructor()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small><br><code>extractCityFromAddress()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small><br>+9 more</td>
+  <td>CompanyModel node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.addChangeListener()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.addChangeListener() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.notifyChange()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><code>resetFilters()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small><br><code>setFilter()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>.notifyChange() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.setFilter()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small><br><code>notifyChange()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.setFilter() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.resetFilters()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small><br><code>notifyChange()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.resetFilters() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.getFilters()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.getFilters() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.parseCapital()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.parseCapital() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>.extractCityFromAddress()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.extractCityFromAddress() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>.normalizeData()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><code>loadCompanies()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>.normalizeData() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>.loadCompanies()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small><br><code>normalizeData()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.loadCompanies() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>.getFilteredAndSortedCompanies()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.getFilteredAndSortedCompanies() node in js/models/CompanyModel.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>.getAllCompanies()</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyModel</code><br><small style="color:var(--muted)">js/models/CompanyModel.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.getAllCompanies() node in js/models/CompanyModel.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/models/CompanyModel.js</code></td><td>14 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x12, calls x3, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 6. Community 5 ====== -->
+<h2 id="community-5">6. Community 5</h2>
+<p>Community 5 groups implementation around companyviewjs, views, companyview, constructor, mostly in js/views/CompanyView.js. This section covers 12 nodes and 15 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 5 (12 nodes, 15 edges)
+    views_companyview_companyview_a53493ac("CompanyView<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_formatcapital_3fdc14f3("formatCapital()<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_formatpercent_58afbeb8("formatPercent()<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_formatsalary_5f90e8d0("formatSalary()<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_formatstockprice_70e185a0("formatStockPrice()<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_constructor_d7169887("constructor()<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_showtoast_596d9861("showToast()<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_populatefilters_f9583d25("populateFilters()<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_rendercompanies_95c01990("renderCompanies()<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_showmodal_ff054bfa("showModal()<br/><small>js/views/CompanyView.js</small>")
+    views_companyview_companyview_closemodal_a0b22bcd("closeModal()<br/><small>js/views/CompanyView.js</small>")
+    js_views_companyview_js_735c1bea("CompanyView.js")
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_constructor_d7169887
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_showtoast_596d9861
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_formatcapital_3fdc14f3
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_formatsalary_5f90e8d0
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_formatstockprice_70e185a0
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_formatpercent_58afbeb8
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_populatefilters_f9583d25
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_rendercompanies_95c01990
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_showmodal_ff054bfa
+    views_companyview_companyview_a53493ac -->|method| views_companyview_companyview_closemodal_a0b22bcd
+    views_companyview_companyview_formatcapital_3fdc14f3 -->|calls| views_companyview_companyview_showmodal_ff054bfa
+    views_companyview_companyview_formatsalary_5f90e8d0 -->|calls| views_companyview_companyview_showmodal_ff054bfa
+    views_companyview_companyview_formatstockprice_70e185a0 -->|calls| views_companyview_companyview_showmodal_ff054bfa
+    views_companyview_companyview_formatpercent_58afbeb8 -->|calls| views_companyview_companyview_showmodal_ff054bfa
+    class views_companyview_companyview_a53493ac klass;
+    class views_companyview_companyview_formatcapital_3fdc14f3 api;
+    class views_companyview_companyview_formatpercent_58afbeb8 function;
+    class views_companyview_companyview_formatsalary_5f90e8d0 function;
+    class views_companyview_companyview_formatstockprice_70e185a0 function;
+    class views_companyview_companyview_constructor_d7169887 function;
+    class views_companyview_companyview_showtoast_596d9861 function;
+    class views_companyview_companyview_populatefilters_f9583d25 function;
+    class views_companyview_companyview_rendercompanies_95c01990 function;
+    class views_companyview_companyview_showmodal_ff054bfa function;
+    class views_companyview_companyview_closemodal_a0b22bcd function;
+    class js_views_companyview_js_735c1bea klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>CompanyView.js</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CompanyView.js node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>closeModal()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small><br><code>constructor()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small><br><code>formatCapital()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small><br>+7 more</td>
+  <td>CompanyView node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.showToast()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.showToast() node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.formatCapital()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><code>showModal()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td>.formatCapital() node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.formatSalary()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><code>showModal()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td>.formatSalary() node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.formatStockPrice()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><code>showModal()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td>.formatStockPrice() node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.formatPercent()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><code>showModal()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td>.formatPercent() node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.populateFilters()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.populateFilters() node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>.renderCompanies()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.renderCompanies() node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>.showModal()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small><br><code>formatCapital()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small><br><code>formatPercent()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small><br>+2 more</td>
+  <td>No direct outbound edge</td>
+  <td>.showModal() node in js/views/CompanyView.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>.closeModal()</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyView</code><br><small style="color:var(--muted)">js/views/CompanyView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.closeModal() node in js/views/CompanyView.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/views/CompanyView.js</code></td><td>12 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x10, calls x4, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 7. Community 7 ====== -->
+<h2 id="community-7">7. Community 7</h2>
+<p>Community 7 groups implementation around uiviewjs, views, uiview, constructor, mostly in js/views/UiView.js. This section covers 12 nodes and 18 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 7 (12 nodes, 18 edges)
+    views_uiview_uiview_88e93ce1("UiView<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_init_3e90f6df("init()<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_initmarketcounting_b6fedc1a("initMarketCounting()<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_initpreloader_4f6478d8("initPreloader()<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_constructor_fa180062("constructor()<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_initmobilemenu_e79b4a48("initMobileMenu()<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_initcursorglow_7b11f1e1("initCursorGlow()<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_initmagnetics_8c7d074c("initMagnetics()<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_initscrollbehavior_e5cd6d74("initScrollBehavior()<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_initscrollreveals_f83cbcc4("initScrollReveals()<br/><small>js/views/UiView.js</small>")
+    views_uiview_uiview_rendermarketinsights_02208001("renderMarketInsights()<br/><small>js/views/UiView.js</small>")
+    js_views_uiview_js_e9057b2c("UiView.js")
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_constructor_fa180062
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_init_3e90f6df
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_initpreloader_4f6478d8
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_initmobilemenu_e79b4a48
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_initcursorglow_7b11f1e1
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_initmagnetics_8c7d074c
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_initscrollbehavior_e5cd6d74
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_initscrollreveals_f83cbcc4
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_initmarketcounting_b6fedc1a
+    views_uiview_uiview_88e93ce1 -->|method| views_uiview_uiview_rendermarketinsights_02208001
+    views_uiview_uiview_init_3e90f6df -->|calls| views_uiview_uiview_initmobilemenu_e79b4a48
+    views_uiview_uiview_init_3e90f6df -->|calls| views_uiview_uiview_initcursorglow_7b11f1e1
+    views_uiview_uiview_init_3e90f6df -->|calls| views_uiview_uiview_initmagnetics_8c7d074c
+    views_uiview_uiview_init_3e90f6df -->|calls| views_uiview_uiview_initscrollbehavior_e5cd6d74
+    views_uiview_uiview_init_3e90f6df -->|calls| views_uiview_uiview_initpreloader_4f6478d8
+    views_uiview_uiview_initpreloader_4f6478d8 -->|calls| views_uiview_uiview_initscrollreveals_f83cbcc4
+    views_uiview_uiview_initmarketcounting_b6fedc1a -->|calls| views_uiview_uiview_rendermarketinsights_02208001
+    class views_uiview_uiview_88e93ce1 klass;
+    class views_uiview_uiview_init_3e90f6df function;
+    class views_uiview_uiview_initmarketcounting_b6fedc1a function;
+    class views_uiview_uiview_initpreloader_4f6478d8 function;
+    class views_uiview_uiview_constructor_fa180062 function;
+    class views_uiview_uiview_initmobilemenu_e79b4a48 function;
+    class views_uiview_uiview_initcursorglow_7b11f1e1 function;
+    class views_uiview_uiview_initmagnetics_8c7d074c function;
+    class views_uiview_uiview_initscrollbehavior_e5cd6d74 function;
+    class views_uiview_uiview_initscrollreveals_f83cbcc4 function;
+    class views_uiview_uiview_rendermarketinsights_02208001 function;
+    class js_views_uiview_js_e9057b2c klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>UiView.js</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>UiView.js node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>constructor()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>init()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>initCursorGlow()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br>+7 more</td>
+  <td>UiView node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.init()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><code>initCursorGlow()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>initMagnetics()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>initMobileMenu()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br>+2 more</td>
+  <td>.init() node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.initPreloader()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>init()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><code>initScrollReveals()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td>.initPreloader() node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.initMobileMenu()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>init()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.initMobileMenu() node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.initCursorGlow()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>init()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.initCursorGlow() node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.initMagnetics()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>init()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.initMagnetics() node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.initScrollBehavior()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>init()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.initScrollBehavior() node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>.initScrollReveals()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>initPreloader()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.initScrollReveals() node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>.initMarketCounting()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><code>renderMarketInsights()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td>.initMarketCounting() node in js/views/UiView.js.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>.renderMarketInsights()</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>initMarketCounting()</code><br><small style="color:var(--muted)">js/views/UiView.js</small><br><code>UiView</code><br><small style="color:var(--muted)">js/views/UiView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.renderMarketInsights() node in js/views/UiView.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/views/UiView.js</code></td><td>12 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x10, calls x7, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 8. Community 8 ====== -->
+<h2 id="community-8">8. Community 8</h2>
+<p>Community 8 groups implementation around threeviewjs, views, threeview, constructor, mostly in js/views/ThreeView.js. This section covers 11 nodes and 15 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 8 (11 nodes, 15 edges)
+    views_threeview_threeview_1e59e364("ThreeView<br/><small>js/views/ThreeView.js</small>")
+    views_threeview_threeview_init_0bb1efaa("init()<br/><small>js/views/ThreeView.js</small>")
+    views_threeview_threeview_animate_7f07b751("animate()<br/><small>js/views/ThreeView.js</small>")
+    views_threeview_threeview_constructor_a14ac81d("constructor()<br/><small>js/views/ThreeView.js</small>")
+    views_threeview_threeview_createbiotechdna_9e3e0bb1("createBiotechDNA()<br/><small>js/views/ThreeView.js</small>")
+    views_threeview_threeview_updatemouseposition_a989b8a7("updateMousePosition()<br/><small>js/views/ThreeView.js</small>")
+    views_threeview_threeview_onresize_9401a4d4("onResize()<br/><small>js/views/ThreeView.js</small>")
+    views_threeview_threeview_createparticles_09b716e3("createParticles()<br/><small>js/views/ThreeView.js</small>")
+    views_threeview_threeview_buildproceduralcompute_ef3fc596("buildProceduralComputer()<br/><small>js/views/ThreeView.js</small>")
+    views_threeview_threeview_drawterminalscreen_41d8b335("drawTerminalScreen()<br/><small>js/views/ThreeView.js</small>")
+    js_views_threeview_js_e929cf3c("ThreeView.js")
+    views_threeview_threeview_1e59e364 -->|method| views_threeview_threeview_constructor_a14ac81d
+    views_threeview_threeview_1e59e364 -->|method| views_threeview_threeview_init_0bb1efaa
+    views_threeview_threeview_1e59e364 -->|method| views_threeview_threeview_createbiotechdna_9e3e0bb1
+    views_threeview_threeview_1e59e364 -->|method| views_threeview_threeview_updatemouseposition_a989b8a7
+    views_threeview_threeview_1e59e364 -->|method| views_threeview_threeview_animate_7f07b751
+    views_threeview_threeview_1e59e364 -->|method| views_threeview_threeview_onresize_9401a4d4
+    views_threeview_threeview_1e59e364 -->|method| views_threeview_threeview_createparticles_09b716e3
+    views_threeview_threeview_1e59e364 -->|method| views_threeview_threeview_buildproceduralcompute_ef3fc596
+    views_threeview_threeview_1e59e364 -->|method| views_threeview_threeview_drawterminalscreen_41d8b335
+    views_threeview_threeview_init_0bb1efaa -->|calls| views_threeview_threeview_createbiotechdna_9e3e0bb1
+    views_threeview_threeview_init_0bb1efaa -->|calls| views_threeview_threeview_animate_7f07b751
+    views_threeview_threeview_init_0bb1efaa -->|calls| views_threeview_threeview_createparticles_09b716e3
+    views_threeview_threeview_init_0bb1efaa -->|calls| views_threeview_threeview_buildproceduralcompute_ef3fc596
+    views_threeview_threeview_animate_7f07b751 -->|calls| views_threeview_threeview_drawterminalscreen_41d8b335
+    class views_threeview_threeview_1e59e364 klass;
+    class views_threeview_threeview_init_0bb1efaa function;
+    class views_threeview_threeview_animate_7f07b751 function;
+    class views_threeview_threeview_constructor_a14ac81d function;
+    class views_threeview_threeview_createbiotechdna_9e3e0bb1 function;
+    class views_threeview_threeview_updatemouseposition_a989b8a7 function;
+    class views_threeview_threeview_onresize_9401a4d4 function;
+    class views_threeview_threeview_createparticles_09b716e3 function;
+    class views_threeview_threeview_buildproceduralcompute_ef3fc596 function;
+    class views_threeview_threeview_drawterminalscreen_41d8b335 function;
+    class js_views_threeview_js_e929cf3c klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>ThreeView.js</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ThreeView.js node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>animate()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br><code>buildProceduralComputer()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br><code>constructor()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br>+6 more</td>
+  <td>ThreeView node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.init()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><code>animate()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br><code>buildProceduralComputer()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br><code>createBiotechDNA()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br>+1 more</td>
+  <td>.init() node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.createBiotechDNA()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>init()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.createBiotechDNA() node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.updateMousePosition()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.updateMousePosition() node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.animate()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>init()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><code>drawTerminalScreen()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td>.animate() node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.onResize()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.onResize() node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.createParticles()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>init()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.createParticles() node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>.buildProceduralComputer()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>init()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.buildProceduralComputer() node in js/views/ThreeView.js.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>.drawTerminalScreen()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>animate()</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small><br><code>ThreeView</code><br><small style="color:var(--muted)">js/views/ThreeView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.drawTerminalScreen() node in js/views/ThreeView.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/views/ThreeView.js</code></td><td>11 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x9, calls x5, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 9. Community 10 ====== -->
+<h2 id="community-10">9. Community 10</h2>
+<p>Community 10 groups implementation around appjs, model, companyview, threeview, mostly in js/app.js. This section covers 9 nodes and 8 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 10 (9 nodes, 8 edges)
+    js_app_js_d65a9d0b("app.js")
+    js_app_model_e1993038("model<br/><small>js/app.js</small>")
+    js_app_companyview_5bcff771("companyView<br/><small>js/app.js</small>")
+    js_app_threeview_4909657b("threeView<br/><small>js/app.js</small>")
+    js_app_dockingview_421e7c23("dockingView<br/><small>js/app.js</small>")
+    js_app_dnaview_a6b8e945("dnaView<br/><small>js/app.js</small>")
+    js_app_hudview_7d220c0c("hudView<br/><small>js/app.js</small>")
+    js_app_uiview_d27570e5("uiView<br/><small>js/app.js</small>")
+    js_app_controller_ccaa8515("controller<br/><small>js/app.js</small>")
+    js_app_js_d65a9d0b -->|contains| js_app_model_e1993038
+    js_app_js_d65a9d0b -->|contains| js_app_companyview_5bcff771
+    js_app_js_d65a9d0b -->|contains| js_app_threeview_4909657b
+    js_app_js_d65a9d0b -->|contains| js_app_dockingview_421e7c23
+    js_app_js_d65a9d0b -->|contains| js_app_dnaview_a6b8e945
+    js_app_js_d65a9d0b -->|contains| js_app_hudview_7d220c0c
+    js_app_js_d65a9d0b -->|contains| js_app_uiview_d27570e5
+    js_app_js_d65a9d0b -->|contains| js_app_controller_ccaa8515
+    class js_app_js_d65a9d0b module;
+    class js_app_model_e1993038 function;
+    class js_app_companyview_5bcff771 function;
+    class js_app_threeview_4909657b function;
+    class js_app_dockingview_421e7c23 function;
+    class js_app_dnaview_a6b8e945 function;
+    class js_app_hudview_7d220c0c function;
+    class js_app_uiview_d27570e5 function;
+    class js_app_controller_ccaa8515 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>app.js</code><br><small style="color:var(--muted)">js/app.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>app.js node in js/app.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>model</code><br><small style="color:var(--muted)">js/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>model node in js/app.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>companyView</code><br><small style="color:var(--muted)">js/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>companyView node in js/app.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>threeView</code><br><small style="color:var(--muted)">js/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>threeView node in js/app.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>dockingView</code><br><small style="color:var(--muted)">js/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>dockingView node in js/app.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>dnaView</code><br><small style="color:var(--muted)">js/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>dnaView node in js/app.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>hudView</code><br><small style="color:var(--muted)">js/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>hudView node in js/app.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>uiView</code><br><small style="color:var(--muted)">js/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>uiView node in js/app.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>controller</code><br><small style="color:var(--muted)">js/app.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>controller node in js/app.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/app.js</code></td><td>9 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x8. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 10. Community 9 ====== -->
+<h2 id="community-9">10. Community 9</h2>
+<p>Community 9 groups implementation around hudviewjs, views, hudview, constructor, mostly in js/views/HudView.js. This section covers 9 nodes and 11 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 9 (9 nodes, 11 edges)
+    views_hudview_hudview_641f7e5c("HudView<br/><small>js/views/HudView.js</small>")
+    views_hudview_hudview_formatcapital_43ebf43e("formatCapital()<br/><small>js/views/HudView.js</small>")
+    views_hudview_hudview_formatpercent_c703b13a("formatPercent()<br/><small>js/views/HudView.js</small>")
+    views_hudview_hudview_formatsalary_a1af1c12("formatSalary()<br/><small>js/views/HudView.js</small>")
+    views_hudview_hudview_constructor_06edf26d("constructor()<br/><small>js/views/HudView.js</small>")
+    views_hudview_hudview_setsearchingstate_c3003140("setSearchingState()<br/><small>js/views/HudView.js</small>")
+    views_hudview_hudview_setsuccessstate_53fd8fb8("setSuccessState()<br/><small>js/views/HudView.js</small>")
+    views_hudview_hudview_updatehuddetails_cd1ca311("updateHudDetails()<br/><small>js/views/HudView.js</small>")
+    js_views_hudview_js_69bdfa53("HudView.js")
+    views_hudview_hudview_641f7e5c -->|method| views_hudview_hudview_constructor_06edf26d
+    views_hudview_hudview_641f7e5c -->|method| views_hudview_hudview_setsearchingstate_c3003140
+    views_hudview_hudview_641f7e5c -->|method| views_hudview_hudview_setsuccessstate_53fd8fb8
+    views_hudview_hudview_641f7e5c -->|method| views_hudview_hudview_formatcapital_43ebf43e
+    views_hudview_hudview_641f7e5c -->|method| views_hudview_hudview_formatsalary_a1af1c12
+    views_hudview_hudview_641f7e5c -->|method| views_hudview_hudview_formatpercent_c703b13a
+    views_hudview_hudview_641f7e5c -->|method| views_hudview_hudview_updatehuddetails_cd1ca311
+    views_hudview_hudview_formatcapital_43ebf43e -->|calls| views_hudview_hudview_updatehuddetails_cd1ca311
+    views_hudview_hudview_formatsalary_a1af1c12 -->|calls| views_hudview_hudview_updatehuddetails_cd1ca311
+    views_hudview_hudview_formatpercent_c703b13a -->|calls| views_hudview_hudview_updatehuddetails_cd1ca311
+    class views_hudview_hudview_641f7e5c klass;
+    class views_hudview_hudview_formatcapital_43ebf43e api;
+    class views_hudview_hudview_formatpercent_c703b13a function;
+    class views_hudview_hudview_formatsalary_a1af1c12 function;
+    class views_hudview_hudview_constructor_06edf26d function;
+    class views_hudview_hudview_setsearchingstate_c3003140 function;
+    class views_hudview_hudview_setsuccessstate_53fd8fb8 function;
+    class views_hudview_hudview_updatehuddetails_cd1ca311 function;
+    class js_views_hudview_js_69bdfa53 klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>HudView.js</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>HudView.js node in js/views/HudView.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>HudView</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>constructor()</code><br><small style="color:var(--muted)">js/views/HudView.js</small><br><code>formatCapital()</code><br><small style="color:var(--muted)">js/views/HudView.js</small><br><code>formatPercent()</code><br><small style="color:var(--muted)">js/views/HudView.js</small><br>+4 more</td>
+  <td>HudView node in js/views/HudView.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>HudView</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in js/views/HudView.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.setSearchingState()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>HudView</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.setSearchingState() node in js/views/HudView.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.setSuccessState()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>HudView</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.setSuccessState() node in js/views/HudView.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.formatCapital()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>HudView</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><code>updateHudDetails()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td>.formatCapital() node in js/views/HudView.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.formatSalary()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>HudView</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><code>updateHudDetails()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td>.formatSalary() node in js/views/HudView.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.formatPercent()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>HudView</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><code>updateHudDetails()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td>.formatPercent() node in js/views/HudView.js.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.updateHudDetails()</code><br><small style="color:var(--muted)">js/views/HudView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>formatCapital()</code><br><small style="color:var(--muted)">js/views/HudView.js</small><br><code>formatPercent()</code><br><small style="color:var(--muted)">js/views/HudView.js</small><br><code>formatSalary()</code><br><small style="color:var(--muted)">js/views/HudView.js</small><br>+1 more</td>
+  <td>No direct outbound edge</td>
+  <td>.updateHudDetails() node in js/views/HudView.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/views/HudView.js</code></td><td>9 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x7, calls x3, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 11. Community 22 ====== -->
+<h2 id="community-22">11. Community 22</h2>
+<p>Community 22 groups implementation around dockingviewjs, views, dockingview, constructor, mostly in js/views/DockingView.js. This section covers 8 nodes and 10 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 22 (8 nodes, 10 edges)
+    views_dockingview_dockingview_8974b8ac("DockingView<br/><small>js/views/DockingView.js</small>")
+    views_dockingview_dockingview_init_f9c89256("init()<br/><small>js/views/DockingView.js</small>")
+    views_dockingview_dockingview_buildmolecules_e8a9995b("buildMolecules()<br/><small>js/views/DockingView.js</small>")
+    views_dockingview_dockingview_constructor_66a5d1da("constructor()<br/><small>js/views/DockingView.js</small>")
+    views_dockingview_dockingview_createballandstick_b44acc54("createBallAndStickMolecule()<br/><small>js/views/DockingView.js</small>")
+    views_dockingview_dockingview_animate_0092b190("animate()<br/><small>js/views/DockingView.js</small>")
+    views_dockingview_dockingview_onresize_a503cd4b("onResize()<br/><small>js/views/DockingView.js</small>")
+    js_views_dockingview_js_5075c1cb("DockingView.js")
+    views_dockingview_dockingview_8974b8ac -->|method| views_dockingview_dockingview_constructor_66a5d1da
+    views_dockingview_dockingview_8974b8ac -->|method| views_dockingview_dockingview_init_f9c89256
+    views_dockingview_dockingview_8974b8ac -->|method| views_dockingview_dockingview_buildmolecules_e8a9995b
+    views_dockingview_dockingview_8974b8ac -->|method| views_dockingview_dockingview_createballandstick_b44acc54
+    views_dockingview_dockingview_8974b8ac -->|method| views_dockingview_dockingview_animate_0092b190
+    views_dockingview_dockingview_8974b8ac -->|method| views_dockingview_dockingview_onresize_a503cd4b
+    views_dockingview_dockingview_init_f9c89256 -->|calls| views_dockingview_dockingview_buildmolecules_e8a9995b
+    views_dockingview_dockingview_init_f9c89256 -->|calls| views_dockingview_dockingview_animate_0092b190
+    views_dockingview_dockingview_buildmolecules_e8a9995b -->|calls| views_dockingview_dockingview_createballandstick_b44acc54
+    class views_dockingview_dockingview_8974b8ac klass;
+    class views_dockingview_dockingview_init_f9c89256 function;
+    class views_dockingview_dockingview_buildmolecules_e8a9995b function;
+    class views_dockingview_dockingview_constructor_66a5d1da function;
+    class views_dockingview_dockingview_createballandstick_b44acc54 function;
+    class views_dockingview_dockingview_animate_0092b190 function;
+    class views_dockingview_dockingview_onresize_a503cd4b function;
+    class js_views_dockingview_js_5075c1cb klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>DockingView.js</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>DockingView.js node in js/views/DockingView.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>DockingView</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>animate()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small><br><code>buildMolecules()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small><br><code>constructor()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small><br>+3 more</td>
+  <td>DockingView node in js/views/DockingView.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DockingView</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in js/views/DockingView.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.init()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DockingView</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><code>animate()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small><br><code>buildMolecules()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td>.init() node in js/views/DockingView.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.buildMolecules()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DockingView</code><br><small style="color:var(--muted)">js/views/DockingView.js</small><br><code>init()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><code>createBallAndStickMolecule()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td>.buildMolecules() node in js/views/DockingView.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.createBallAndStickMolecule()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>buildMolecules()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small><br><code>DockingView</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.createBallAndStickMolecule() node in js/views/DockingView.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.animate()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DockingView</code><br><small style="color:var(--muted)">js/views/DockingView.js</small><br><code>init()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.animate() node in js/views/DockingView.js.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.onResize()</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DockingView</code><br><small style="color:var(--muted)">js/views/DockingView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.onResize() node in js/views/DockingView.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/views/DockingView.js</code></td><td>8 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x6, calls x3, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 12. Community 12 ====== -->
+<h2 id="community-12">12. Community 12</h2>
+<p>Community 12 groups implementation around companycontrollerjs, controllers, companycontroller, constructor, mostly in js/controllers/CompanyController.js. This section covers 7 nodes and 8 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 12 (7 nodes, 8 edges)
+    js_controllers_companycontroller_js_controllers_425b6c93("CompanyController<br/><small>js/controllers/CompanyController.js</small>")
+    controllers_companycontroller_companycontroller_b1c25e8a("init()<br/><small>js/controllers/CompanyController.js</small>")
+    controllers_companycontroller_companycontroller_f007346d("constructor()<br/><small>js/controllers/CompanyController.js</small>")
+    controllers_companycontroller_companycontroller_77ec6040("handleModelChange()<br/><small>js/controllers/CompanyController.js</small>")
+    controllers_companycontroller_companycontroller_29bc8e8f("bindEvents()<br/><small>js/controllers/CompanyController.js</small>")
+    controllers_companycontroller_companycontroller_5bec3b4d("runAISimulation()<br/><small>js/controllers/CompanyController.js</small>")
+    js_controllers_companycontroller_js_a67b728e("CompanyController.js")
+    js_controllers_companycontroller_js_controllers_425b6c93 -->|method| controllers_companycontroller_companycontroller_f007346d
+    js_controllers_companycontroller_js_controllers_425b6c93 -->|method| controllers_companycontroller_companycontroller_b1c25e8a
+    js_controllers_companycontroller_js_controllers_425b6c93 -->|method| controllers_companycontroller_companycontroller_77ec6040
+    js_controllers_companycontroller_js_controllers_425b6c93 -->|method| controllers_companycontroller_companycontroller_29bc8e8f
+    js_controllers_companycontroller_js_controllers_425b6c93 -->|method| controllers_companycontroller_companycontroller_5bec3b4d
+    controllers_companycontroller_companycontroller_b1c25e8a -->|calls| controllers_companycontroller_companycontroller_77ec6040
+    controllers_companycontroller_companycontroller_b1c25e8a -->|calls| controllers_companycontroller_companycontroller_29bc8e8f
+    class js_controllers_companycontroller_js_controllers_425b6c93 klass;
+    class controllers_companycontroller_companycontroller_b1c25e8a function;
+    class controllers_companycontroller_companycontroller_f007346d function;
+    class controllers_companycontroller_companycontroller_77ec6040 function;
+    class controllers_companycontroller_companycontroller_29bc8e8f function;
+    class controllers_companycontroller_companycontroller_5bec3b4d function;
+    class js_controllers_companycontroller_js_a67b728e klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>CompanyController.js</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CompanyController.js node in js/controllers/CompanyController.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>bindEvents()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small><br><code>constructor()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small><br><code>handleModelChange()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small><br>+2 more</td>
+  <td>CompanyController node in js/controllers/CompanyController.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in js/controllers/CompanyController.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.init()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td><code>bindEvents()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small><br><code>handleModelChange()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td>.init() node in js/controllers/CompanyController.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.handleModelChange()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small><br><code>init()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.handleModelChange() node in js/controllers/CompanyController.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.bindEvents()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small><br><code>init()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.bindEvents() node in js/controllers/CompanyController.js.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.runAISimulation()</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">js/controllers/CompanyController.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.runAISimulation() node in js/controllers/CompanyController.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/controllers/CompanyController.js</code></td><td>7 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x5, calls x2, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 13. Community 13 ====== -->
+<h2 id="community-13">13. Community 13</h2>
+<p>Community 13 groups implementation around dnaviewjs, views, dnaview, constructor, mostly in js/views/DnaView.js. This section covers 6 nodes and 7 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 13 (6 nodes, 7 edges)
+    views_dnaview_dnaview_6891b298("DnaView<br/><small>js/views/DnaView.js</small>")
+    views_dnaview_dnaview_init_3bc7ddd7("init()<br/><small>js/views/DnaView.js</small>")
+    views_dnaview_dnaview_constructor_39dfce7f("constructor()<br/><small>js/views/DnaView.js</small>")
+    views_dnaview_dnaview_creatednaelements_06bdd5ef("createDnaElements()<br/><small>js/views/DnaView.js</small>")
+    views_dnaview_dnaview_tick_226e91c4("tick()<br/><small>js/views/DnaView.js</small>")
+    js_views_dnaview_js_598c7229("DnaView.js")
+    views_dnaview_dnaview_6891b298 -->|method| views_dnaview_dnaview_constructor_39dfce7f
+    views_dnaview_dnaview_6891b298 -->|method| views_dnaview_dnaview_init_3bc7ddd7
+    views_dnaview_dnaview_6891b298 -->|method| views_dnaview_dnaview_creatednaelements_06bdd5ef
+    views_dnaview_dnaview_6891b298 -->|method| views_dnaview_dnaview_tick_226e91c4
+    views_dnaview_dnaview_init_3bc7ddd7 -->|calls| views_dnaview_dnaview_creatednaelements_06bdd5ef
+    views_dnaview_dnaview_init_3bc7ddd7 -->|calls| views_dnaview_dnaview_tick_226e91c4
+    class views_dnaview_dnaview_6891b298 klass;
+    class views_dnaview_dnaview_init_3bc7ddd7 function;
+    class views_dnaview_dnaview_constructor_39dfce7f function;
+    class views_dnaview_dnaview_creatednaelements_06bdd5ef function;
+    class views_dnaview_dnaview_tick_226e91c4 function;
+    class js_views_dnaview_js_598c7229 klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>DnaView.js</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>DnaView.js node in js/views/DnaView.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>DnaView</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>constructor()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small><br><code>createDnaElements()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small><br><code>init()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small><br>+1 more</td>
+  <td>DnaView node in js/views/DnaView.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.constructor()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DnaView</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.constructor() node in js/views/DnaView.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.init()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DnaView</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td><code>createDnaElements()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small><br><code>tick()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td>.init() node in js/views/DnaView.js.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.createDnaElements()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DnaView</code><br><small style="color:var(--muted)">js/views/DnaView.js</small><br><code>init()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.createDnaElements() node in js/views/DnaView.js.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.tick()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>DnaView</code><br><small style="color:var(--muted)">js/views/DnaView.js</small><br><code>init()</code><br><small style="color:var(--muted)">js/views/DnaView.js</small></td>
+  <td>No direct outbound edge</td>
+  <td>.tick() node in js/views/DnaView.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/views/DnaView.js</code></td><td>6 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x4, calls x2, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 14. Community 14 ====== -->
+<h2 id="community-14">14. Community 14</h2>
+<p>Community 14 groups implementation around companyphp, models, company, construct, mostly in models/Company.php. This section covers 4 nodes and 3 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 14 (4 nodes, 3 edges)
+    models_company_company_9dcb4389("Company<br/><small>models/Company.php</small>")
+    models_company_company_construct_c8882ca2("__construct()<br/><small>models/Company.php</small>")
+    models_company_company_search_ce0dfad9("search()<br/><small>models/Company.php</small>")
+    models_company_php_199c55e7("Company.php")
+    models_company_company_9dcb4389 -->|method| models_company_company_construct_c8882ca2
+    models_company_company_9dcb4389 -->|method| models_company_company_search_ce0dfad9
+    class models_company_company_9dcb4389 klass;
+    class models_company_company_construct_c8882ca2 function;
+    class models_company_company_search_ce0dfad9 function;
+    class models_company_php_199c55e7 klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>Company.php</code><br><small style="color:var(--muted)">models/Company.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Company.php node in models/Company.php.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Company</code><br><small style="color:var(--muted)">models/Company.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>__construct()</code><br><small style="color:var(--muted)">models/Company.php</small><br><code>search()</code><br><small style="color:var(--muted)">models/Company.php</small></td>
+  <td>Company node in models/Company.php.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.__construct()</code><br><small style="color:var(--muted)">models/Company.php</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Company</code><br><small style="color:var(--muted)">models/Company.php</small></td>
+  <td>No direct outbound edge</td>
+  <td>.__construct() node in models/Company.php.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.search()</code><br><small style="color:var(--muted)">models/Company.php</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Company</code><br><small style="color:var(--muted)">models/Company.php</small></td>
+  <td>No direct outbound edge</td>
+  <td>.search() node in models/Company.php.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>models/Company.php</code></td><td>4 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: method x2, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 15. Community 23 ====== -->
+<h2 id="community-23">15. Community 23</h2>
+<p>Community 23 groups implementation around easter, eggjs, trigger, footer, mostly in js/easter-egg.js. This section covers 4 nodes and 3 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Community 23 (4 nodes, 3 edges)
+    js_easter_egg_js_a84e8b1c("easter-egg.js")
+    js_easter_egg_trigger_bbd6956f("trigger<br/><small>js/easter-egg.js</small>")
+    js_easter_egg_footer_339cc228("footer<br/><small>js/easter-egg.js</small>")
+    js_easter_egg_triggereasteregg_8da39b98("triggerEasterEgg()<br/><small>js/easter-egg.js</small>")
+    js_easter_egg_js_a84e8b1c -->|contains| js_easter_egg_trigger_bbd6956f
+    js_easter_egg_js_a84e8b1c -->|contains| js_easter_egg_footer_339cc228
+    js_easter_egg_js_a84e8b1c -->|contains| js_easter_egg_triggereasteregg_8da39b98
+    class js_easter_egg_js_a84e8b1c module;
+    class js_easter_egg_trigger_bbd6956f function;
+    class js_easter_egg_footer_339cc228 function;
+    class js_easter_egg_triggereasteregg_8da39b98 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>easter-egg.js</code><br><small style="color:var(--muted)">js/easter-egg.js</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>easter-egg.js node in js/easter-egg.js.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>trigger</code><br><small style="color:var(--muted)">js/easter-egg.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>trigger node in js/easter-egg.js.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>footer</code><br><small style="color:var(--muted)">js/easter-egg.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>footer node in js/easter-egg.js.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>triggerEasterEgg()</code><br><small style="color:var(--muted)">js/easter-egg.js</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>triggerEasterEgg() node in js/easter-egg.js.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>js/easter-egg.js</code></td><td>4 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 16. Other ====== -->
+<h2 id="other">16. Other</h2>
+<p>Other groups implementation around graphifymd, companycontrollerphp, databasephp, agents, mostly in controllers/CompanyController.php, models/Database.php, .agents/rules/graphify.md. This section covers 11 nodes and 6 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Other (11 nodes, 6 edges)
+    subgraph other_controllers_CompanyController_php_172776ec["controllers/CompanyController.php"]
+        controllers_companycontroller_php_controllers_co_dcc23dd9("CompanyController<br/><small>controllers/CompanyController.php</small>")
+        controllers_companycontroller_companycontroller_301860f7("handleRequest()<br/><small>controllers/CompanyController.php</small>")
+        controllers_companycontroller_php_d58e3e21("CompanyController.php")
+    end
+    subgraph other_models_Database_php_66925949["models/Database.php"]
+        models_database_database_78777633("Database<br/><small>models/Database.php</small>")
+        models_database_database_getconnection_0eefc265("getConnection()<br/><small>models/Database.php</small>")
+        models_database_php_b5969a74("Database.php")
+    end
+    subgraph other_agents_rules_graphify_md_46085eba[".agents/rules/graphify.md"]
+        rules_graphify_graphify_492e01fa("graphify<br/><small>.agents/rules/graphify.md</small>")
+        agents_rules_graphify_md_4b23c981("graphify.md")
+    end
+    subgraph other_agents_workflows_graphify_md_fa0cc363[".agents/workflows/graphify.md"]
+        workflows_graphify_workflow_graphify_f1045e4e("Workflow: graphify<br/><small>.agents/workflows/graphify.md</small>")
+        agents_workflows_graphify_md_bb08c945("graphify.md")
+    end
+    index_php_092111f7("index.php")
+    controllers_companycontroller_php_controllers_co_dcc23dd9 -->|method| controllers_companycontroller_companycontroller_301860f7
+    models_database_database_78777633 -->|method| models_database_database_getconnection_0eefc265
+    class controllers_companycontroller_php_controllers_co_dcc23dd9 klass;
+    class controllers_companycontroller_companycontroller_301860f7 function;
+    class controllers_companycontroller_php_d58e3e21 klass;
+    class models_database_database_78777633 klass;
+    class models_database_database_getconnection_0eefc265 function;
+    class models_database_php_b5969a74 klass;
+    class rules_graphify_graphify_492e01fa concept;
+    class agents_rules_graphify_md_4b23c981 concept;
+    class workflows_graphify_workflow_graphify_f1045e4e concept;
+    class agents_workflows_graphify_md_bb08c945 concept;
+    class index_php_092111f7 module;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>CompanyController.php</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CompanyController.php node in controllers/CompanyController.php.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>handleRequest()</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
+  <td>CompanyController node in controllers/CompanyController.php.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.handleRequest()</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
+  <td>No direct outbound edge</td>
+  <td>.handleRequest() node in controllers/CompanyController.php.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Database.php</code><br><small style="color:var(--muted)">models/Database.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Database.php node in models/Database.php.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>Database</code><br><small style="color:var(--muted)">models/Database.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>getConnection()</code><br><small style="color:var(--muted)">models/Database.php</small></td>
+  <td>Database node in models/Database.php.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.getConnection()</code><br><small style="color:var(--muted)">models/Database.php</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Database</code><br><small style="color:var(--muted)">models/Database.php</small></td>
+  <td>No direct outbound edge</td>
+  <td>.getConnection() node in models/Database.php.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>graphify.md</code><br><small style="color:var(--muted)">.agents/rules/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing graphify.md.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>graphify</code><br><small style="color:var(--muted)">.agents/rules/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing graphify.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>graphify.md</code><br><small style="color:var(--muted)">.agents/workflows/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing graphify.md.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Workflow: graphify</code><br><small style="color:var(--muted)">.agents/workflows/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Workflow: graphify.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>index.php</code><br><small style="color:var(--muted)">index.php</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>index.php node in index.php.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>controllers/CompanyController.php</code></td><td>3 nodes</td></tr>
+<tr><td><code>models/Database.php</code></td><td>3 nodes</td></tr>
+<tr><td><code>.agents/rules/graphify.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>.agents/workflows/graphify.md</code></td><td>2 nodes</td></tr>
+<tr><td><code>index.php</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x4, method x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<h2 id="stats">Project Statistics</h2>
+
+<div class="grid">
+  <div class="card">
+    <h4>Graph</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>Nodes</td><td>209</td></tr>
+      <tr><td>Edges</td><td>241</td></tr>
+      <tr><td>Hyperedges</td><td>0</td></tr>
+      <tr><td>Communities</td><td>24</td></tr>
+      <tr><td>Documented Sections</td><td>15</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Edge Confidence</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><td>EXTRACTED</td><td>241</td></tr>
+      <tr><td>INFERRED</td><td>0</td></tr>
+      <tr><td>AMBIGUOUS</td><td>0</td></tr>
+    </table>
+  </div>
+</div>
+
+<div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
+  <p>0511 — Architecture Documentation</p>
+  <p>Generated: 2026-05-24 06:27 UTC · graphify callflow-html</p>
+</div>
+
+</div><!-- .container -->
+
+<script>
+(function () {
+  const mermaidConfig = {
+    startOnLoad: false,
+    theme: 'dark',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, useMaxWidth: true },
+    themeVariables: {
+      primaryColor: '#1e293b',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#38bdf8',
+      secondaryColor: '#0f172a',
+      tertiaryColor: '#334155',
+      lineColor: '#64748b',
+      textColor: '#e2e8f0',
+    }
+  };
+
+  mermaid.initialize(mermaidConfig);
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function enhanceMermaidDiagrams() {
+    document.querySelectorAll('.mermaid').forEach((container) => {
+      if (container.dataset.zoomReady === 'true') return;
+      const svg = container.querySelector('svg');
+      if (!svg) return;
+
+      container.dataset.zoomReady = 'true';
+      container.classList.add('is-enhanced');
+
+      const viewport = document.createElement('div');
+      viewport.className = 'mermaid-viewport';
+      svg.parentNode.insertBefore(viewport, svg);
+      viewport.appendChild(svg);
+
+      const toolbar = document.createElement('div');
+      toolbar.className = 'mermaid-toolbar';
+      toolbar.innerHTML = [
+        '<button type="button" data-action="zoom-out" title="Zoom out">-</button>',
+        '<span class="zoom-level" data-role="level">100%</span>',
+        '<button type="button" data-action="zoom-in" title="Zoom in">+</button>',
+        '<button type="button" data-action="fit" title="Fit width">Fit</button>',
+        '<button type="button" data-action="reset" title="Reset view">Reset</button>'
+      ].join('');
+      container.insertBefore(toolbar, viewport);
+
+      const state = { scale: 1, x: 0, y: 0, dragging: false, startX: 0, startY: 0, originX: 0, originY: 0 };
+      const level = toolbar.querySelector('[data-role="level"]');
+
+      function applyTransform() {
+        svg.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+        level.textContent = `${Math.round(state.scale * 100)}%`;
+      }
+
+      function zoomBy(delta) {
+        state.scale = clamp(state.scale + delta, 0.25, 3);
+        applyTransform();
+      }
+
+      function reset() {
+        state.scale = 1;
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      function fitWidth() {
+        const rawWidth = svg.viewBox && svg.viewBox.baseVal && svg.viewBox.baseVal.width
+          ? svg.viewBox.baseVal.width
+          : svg.getBoundingClientRect().width / state.scale;
+        if (!rawWidth) {
+          reset();
+          return;
+        }
+        state.scale = clamp((viewport.clientWidth - 48) / rawWidth, 0.25, 1.4);
+        state.x = 0;
+        state.y = 0;
+        applyTransform();
+      }
+
+      toolbar.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-action]');
+        if (!button) return;
+        const action = button.dataset.action;
+        if (action === 'zoom-in') zoomBy(0.15);
+        if (action === 'zoom-out') zoomBy(-0.15);
+        if (action === 'fit') fitWidth();
+        if (action === 'reset') reset();
+      });
+
+      viewport.addEventListener('wheel', (event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        zoomBy(event.deltaY < 0 ? 0.1 : -0.1);
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return;
+        state.dragging = true;
+        state.startX = event.clientX;
+        state.startY = event.clientY;
+        state.originX = state.x;
+        state.originY = state.y;
+        viewport.classList.add('is-dragging');
+        viewport.setPointerCapture(event.pointerId);
+      });
+
+      viewport.addEventListener('pointermove', (event) => {
+        if (!state.dragging) return;
+        state.x = state.originX + event.clientX - state.startX;
+        state.y = state.originY + event.clientY - state.startY;
+        applyTransform();
+      });
+
+      function endDrag(event) {
+        if (!state.dragging) return;
+        state.dragging = false;
+        viewport.classList.remove('is-dragging');
+        if (viewport.hasPointerCapture(event.pointerId)) {
+          viewport.releasePointerCapture(event.pointerId);
+        }
+      }
+
+      viewport.addEventListener('pointerup', endDrag);
+      viewport.addEventListener('pointercancel', endDrag);
+      applyTransform();
+    });
+  }
+
+  function renderMermaid() {
+    const result = mermaid.run
+      ? mermaid.run({ querySelector: '.mermaid' })
+      : Promise.resolve();
+    Promise.resolve(result)
+      .then(enhanceMermaidDiagrams)
+      .catch((error) => {
+        console.error('Mermaid render failed:', error);
+        enhanceMermaidDiagrams();
+      });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderMermaid);
+  } else {
+    renderMermaid();
+  }
+})();
+</script>
+
+</body>
+</html>
