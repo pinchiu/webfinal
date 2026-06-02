@@ -1,16 +1,16 @@
-# Graph Report - 0511  (2026-05-24)
+# Graph Report - 0511  (2026-06-02)
 
 ## Corpus Check
-- 20 files · ~356,215 words
+- 17 files · ~637,954 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 209 nodes · 241 edges · 24 communities (9 shown, 15 thin omitted)
+- 218 nodes · 247 edges · 27 communities (12 shown, 15 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `cc02eacd`
+- Built from commit: `caadaa99`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -40,21 +40,21 @@
 
 ## God Nodes (most connected - your core abstractions)
 1. `CompanyModel` - 13 edges
-2. `DesignSystemGenerator` - 11 edges
-3. `CompanyView` - 11 edges
-4. `UiView` - 11 edges
+2. `CompanyView` - 11 edges
+3. `UiView` - 11 edges
+4. `DesignSystemGenerator` - 11 edges
 5. `ThreeView` - 10 edges
 6. `ui-ux-pro-max` - 9 edges
-7. `_search_csv()` - 8 edges
-8. `HudView` - 8 edges
-9. `BM25` - 7 edges
-10. `generate_design_system()` - 7 edges
+7. `HudView` - 8 edges
+8. `_search_csv()` - 8 edges
+9. `DockingView` - 7 edges
+10. `BM25` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `generate_design_system()` --calls--> `DesignSystemGenerator`  [EXTRACTED]
   .gemini/skills/ui-ux-pro-max/scripts/design_system.py → .gemini/skills/ui-ux-pro-max/scripts/design_system.py  _Bridges community 2 → community 3_
 
-## Communities (24 total, 15 thin omitted)
+## Communities (27 total, 15 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.08
@@ -85,7 +85,7 @@ Cohesion: 0.25
 Nodes (8): code:bash (python3 skills/ui-ux-pro-max/scripts/search.py "beauty spa w), code:bash (# Get UX guidelines for animation and accessibility), code:bash (python3 skills/ui-ux-pro-max/scripts/search.py "layout respo), Example Workflow, Step 1: Analyze Requirements, Step 2: Generate Design System (REQUIRED), Step 3: Supplement with Detailed Searches (as needed), Step 4: Stack Guidelines
 
 ## Knowledge Gaps
-- **40 isolated node(s):** `model`, `companyView`, `threeView`, `dockingView`, `dnaView` (+35 more)
+- **38 isolated node(s):** `model`, `companyView`, `threeView`, `dockingView`, `dnaView` (+33 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -93,13 +93,13 @@ Nodes (8): code:bash (python3 skills/ui-ux-pro-max/scripts/search.py "beauty spa
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `ui-ux-pro-max` connect `Community 0` to `Community 11`, `Community 6`?**
-  _High betweenness centrality (0.036) - this node is a cross-community bridge._
+  _High betweenness centrality (0.033) - this node is a cross-community bridge._
 - **Why does `How to Use This Skill` connect `Community 6` to `Community 0`?**
-  _High betweenness centrality (0.019) - this node is a cross-community bridge._
+  _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **Why does `DesignSystemGenerator` connect `Community 2` to `Community 3`?**
-  _High betweenness centrality (0.014) - this node is a cross-community bridge._
-- **What connects `BM25 ranking algorithm for text search`, `Lowercase, split, remove punctuation, filter short words`, `Build BM25 index from documents` to the rest of the system?**
-  _66 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+- **What connects `model`, `companyView`, `threeView` to the rest of the system?**
+  _64 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.08333333333333333 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**

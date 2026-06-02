@@ -138,10 +138,66 @@ class CompanyView {
                     "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800"
                 ];
 
+                const companyPhotoMap = {
+                    '基龍米克斯': 'public/images/companies/基龍米克斯.jpg',
+                    '行動基因': 'public/images/companies/行動基因_1.jpg',
+                    '華聯生技': 'public/images/companies/華聯生技_1.jpg',
+                    '麗寶生醫': 'public/images/companies/麗寶生醫_1.jpg',
+                    '創源生技': 'public/images/companies/創源生技_1_改訊連基因數位GGA.jpg',
+                    '精拓生技': 'public/images/companies/精拓生技_1.jpg',
+                    '維致生醫': 'public/images/companies/維致生醫_1.jpg',
+                    '藥華醫藥': 'public/images/companies/藥華醫藥_1.webp',
+                    '中裕新藥': 'public/images/companies/中裕新藥_1.jpg',
+                    '東洋藥品': 'public/images/companies/東洋藥品_1.jpg',
+                    '浩鼎生技': 'public/images/companies/浩鼎生技_1.jpg',
+                    '中天生技': 'public/images/companies/中天生技_1.jpg',
+                    '逸達生技': 'public/images/companies/逸達生技_1.jpg',
+                    '美時化學': 'public/images/companies/美時化學-1.jpg',
+                    '太景生技': 'public/images/companies/太景生技_1.png',
+                    '亞諾法': 'public/images/companies/亞諾法_1.jpg',
+                    '漢康生醫': 'public/images/companies/漢康生醫_1.png',
+                    '全福生技': 'public/images/companies/全福生技_1.jpg',
+                    '醣基生醫': 'public/images/companies/醣基生醫_1.webp',
+                    '旭富製藥': 'public/images/companies/旭富製藥_1.jpg',
+                    '台康生技': 'public/images/companies/台康生技_1.jpg',
+                    '保瑞藥業': 'public/images/companies/保瑞藥業_1.jpg',
+                    '永昕生物': 'public/images/companies/永昕生物_1.jpg',
+                    '台灣神隆': 'public/images/companies/台灣神隆_1.jpg',
+                    '台灣生物醫藥製造': 'public/images/companies/台灣生物醫藥製造_1.png',
+                    '喜康生技': 'public/images/companies/喜康生技_1.jpg',
+                    '安美得': 'public/images/companies/安美得_1.png',
+                    '訊聯生技': 'public/images/companies/訊聯生技_1.jpg',
+                    '亞果生醫': 'public/images/companies/亞果生醫_1.jpg',
+                    '基亞生技': 'public/images/companies/基亞生技-基亞生物_1.png',
+                    '和訊生技': 'public/images/companies/和訊生技_1.png',
+                    '台安生技': 'public/images/companies/台安生技_1.jpg',
+                    '國光生技': 'public/images/companies/國光生技_1.jpg',
+                    '高端疫苗': 'public/images/companies/高端疫苗_1.webp',
+                    '普生': 'public/images/companies/普生_1.png',
+                    '光鼎生技': 'public/images/companies/光鼎生技_1.jpg',
+                    '立景生技': 'public/images/companies/立景生技_1.jpg',
+                    '國鼎生技': 'public/images/companies/國鼎生技_1.jpg',
+                    '創益生技': 'public/images/companies/創益生技_1.jpg'
+                };
+
                 const imgIndex = (company.id || index) % placeholderImages.length;
-                const imageUrl = company.image && company.image.startsWith('http')
-                    ? company.image
-                    : placeholderImages[imgIndex];
+                let imageUrl = '';
+
+                // 優先使用資料庫中的圖片欄位
+                if (company.image && company.image.trim() !== '') {
+                    imageUrl = company.image;
+                } else if (companyPhotoMap[company.name]) {
+                    // 若資料庫無圖片，則使用本地對照字典
+                    imageUrl = companyPhotoMap[company.name];
+                } else {
+                    // 最後使用 Unsplash 預設圖
+                    imageUrl = placeholderImages[imgIndex];
+                }
+
+                // 若為本機相對路徑（且不是以 ../ 開頭），自動補上 ../ 以對應 html/ 目錄結構
+                if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('../')) {
+                    imageUrl = '../' + imageUrl;
+                }
 
                 article.innerHTML = `
                     <div class="card__glare"></div>

@@ -1,352 +1,772 @@
 {
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\api.php": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\api.php": {
     "mtime": 1779600181.9220126,
     "ast_hash": "4ea89cc86656a92a1035e0d228101e0e",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\index.php": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\index.php": {
     "mtime": 1779600216.9141178,
     "ast_hash": "d26e3ee0782d9c17fd2112349bfea375",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\controllers\\CompanyController.php": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\update_database_images.php": {
+    "mtime": 1780375636.5675962,
+    "ast_hash": "f365edfd3d3041578fdf93a5a1386228",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\controllers\\CompanyController.php": {
     "mtime": 1779600176.284088,
     "ast_hash": "c8d1652a4e1f7ab185d3e4bcb220c00b",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\app.js": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\js\\app.js": {
     "mtime": 1779602978.4701078,
     "ast_hash": "e42ebdaa9224994f275c4467d70c7cd4",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\controllers\\CompanyController.js": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\js\\controllers\\CompanyController.js": {
     "mtime": 1779602032.547652,
     "ast_hash": "f6c89ad6ee205f528775980bcd26f0dc",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\models\\CompanyModel.js": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\js\\models\\CompanyModel.js": {
     "mtime": 1779601137.4530532,
     "ast_hash": "33e75a61548c72c3c5438ecf0cb3604a",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\CompanyView.js": {
-    "mtime": 1779601527.305001,
-    "ast_hash": "4effb795af5eae37fce1f95e3a9f3c19",
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\js\\views\\CompanyView.js": {
+    "mtime": 1780375631.9841561,
+    "ast_hash": "f309ebffc2890d10e2f2d23b5e9fe97e",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\DnaView.js": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\js\\views\\DnaView.js": {
     "mtime": 1779600683.7852318,
     "ast_hash": "2cd4e536cc394de762ef262974a93b92",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\HudView.js": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\js\\views\\DockingView.js": {
+    "mtime": 1779603857.727939,
+    "ast_hash": "aa3597245f73a5cf877579e753cbdea3",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\js\\views\\HudView.js": {
     "mtime": 1779600691.285699,
     "ast_hash": "c4c8223bb1cd2a83c8ae49792ea285ea",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\ThreeView.js": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\js\\views\\ThreeView.js": {
     "mtime": 1779603547.0526443,
     "ast_hash": "e42dca78fa4f915fd251421b0f22f15c",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\UiView.js": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\js\\views\\UiView.js": {
     "mtime": 1779603438.2569366,
     "ast_hash": "79f55c64481a8d328c22d7fbd48e3f09",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\models\\Company.php": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\models\\Company.php": {
     "mtime": 1779600170.7207904,
     "ast_hash": "6dd114564b72f44b8ca70ec5e152d817",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\models\\Database.php": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\models\\Database.php": {
     "mtime": 1779600164.6436355,
     "ast_hash": "f300c92c81e8c3dab3682185e88d0b5c",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\index.html": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\index.html": {
     "mtime": 1779600713.8992207,
     "ast_hash": "1473b8aacca2eb79adfcf698483bac79",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\html\\index.html": {
-    "mtime": 1779603727.597589,
-    "ast_hash": "fa19a625dbe232ddc8c2018f56110ac3",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\license.txt": {
-    "mtime": 1779170829.0,
-    "ast_hash": "ed537a4eacc4832147b3fc3086cd0207",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.002_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "35e25d59126d8762bdab0a2d6d05c647",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.023_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "dbc97bc78cce3f7056d162f3c04602e3",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.024_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "ca9a2f465268eb9d4c5cb2bcebb8f543",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_0_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "fdb7ef987402608dbc54f44b619b281c",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_10_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "548382129f9e24d003c94b9d1ff03d07",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_11_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "fe9af7cf6acea473368d4fb62afd67d0",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_12_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "91a62bc77f92b7d4542861d1d4c7fbb9",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_13_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "343d72da2041ff61c57498ef8f691342",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_14_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "8e822ebe111e9b682db992e90a3dd421",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_15_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "6bc1cb84fed2ebea1e20726c333829cb",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_16_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "d2ffd8d27466db9a830334168f0933f2",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_17_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "5c9f88375cf0d9e4789e6c6b1a60734f",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_18_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "c8149f06706a927afb48b65d3a2fe119",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_18_emissive.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "3b4374c710e54dc8534150fcf6ae7873",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_19_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "e9070b535a2e0c3012e63398dc554798",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_1_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "2fa68839191b9359a1767ab20b52f1bb",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_20_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "064b878ad81554b8e07a5d5fc6c2cc67",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_21_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "3f76f6f055adc052cc1805adea9085bd",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_22_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "316d2a9d05ec56c9fc8563c9b078e686",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_23_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "0c247143b91640b400714072e9157c0f",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_24_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "5baf1a6d1c3125fbb07037aab3e2eb68",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_24_emissive.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "8380d7402e2ecfb8442b42a9b20c16b8",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_25_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "dfe2895e1d12f30f7d9554ba147a3eae",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_26_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "f153ab4eca07bceeaa1088c0dc0c652a",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_27_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "f0034cbcfdda3dc405de4f7fe271b2c6",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_27_emissive.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "78dbd71aa070e0ca86ee9a8d15b1143a",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_28_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "ccaedc0a4eba6b67fe3ab83302bc1417",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_29_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "018d596a220604a594cd0fd69f7e87f1",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_2_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "059ab594475b338f9d5bad37c548074d",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_30_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "8c49cb47ddd0888be15617c9e6c990c5",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_31_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "09331dfefd9056ca78e57b8a33c6cc4e",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_32_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "7e75c0e35c6915ef3ff069c0698f8b4b",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_33_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "dc4464ab39ad4be689fd135e84cd071c",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_34_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "d4220ce14c37a9a67d06fab4932dab79",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_35_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "5a951d0aad494a0584516a4926eb9451",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_36_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "5f0e4b3ca11fe7301f5fedae83c14cb6",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_39_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "144f2ccb46548f1a8c180df24f4acdc4",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_3_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "164ae623a0796a8b4c1c629d925e6576",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_40_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "85fa9a240ae54d6b61b4b5140e7a5c7d",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_4_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "1f60e118c24afa38a7a5324661cf9b1b",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_4_emissive.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "b35299d3e99267154505735d894ed51e",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_5_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "7ca558555f7122727ed06e962e6b3bda",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_6_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "4e066d93f54588fe724587fed0e20f95",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_7_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "8846216e98f2c57de8c6bb33fc38a5ba",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_8_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "92ed78d0989371c66b6451ea81f92870",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_9_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "d0faa9c1663c816a1697721241e1009d",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_9_emissive.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "cbc546984ead36d7c006e1c607980ef4",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_baseColor.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "ff9fe4dfcc6d544165602e0eb2c6fda5",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "fd6f9bce75d3515756debcb5ca12a898",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material_metallicRoughness.png": {
-    "mtime": 1779170829.0,
-    "ast_hash": "82a688151ea06c3ede3706efa564ae47",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Tasten_2_baseColor.jpeg": {
-    "mtime": 1779170829.0,
-    "ast_hash": "cc4c89c56df059f0de2e70540fc8077f",
-    "semantic_hash": ""
-  },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\.agents\\rules\\graphify.md": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\.agents\\rules\\graphify.md": {
     "mtime": 1779601732.3055413,
     "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\.agents\\workflows\\graphify.md": {
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\.agents\\workflows\\graphify.md": {
     "mtime": 1779601732.3065505,
     "ast_hash": "84de69efd46ab0b8430393bd4188f8f2",
     "semantic_hash": ""
   },
-  "C:\\Users\\poo\\Desktop\\web final\\frontend\\0511\\js\\views\\DockingView.js": {
-    "mtime": 1779603857.727939,
-    "ast_hash": "aa3597245f73a5cf877579e753cbdea3",
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\html\\index.html": {
+    "mtime": 1779603727.597589,
+    "ast_hash": "fa19a625dbe232ddc8c2018f56110ac3",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\license.txt": {
+    "mtime": 1779170829.0,
+    "ast_hash": "ed537a4eacc4832147b3fc3086cd0207",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.002_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "35e25d59126d8762bdab0a2d6d05c647",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.023_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "dbc97bc78cce3f7056d162f3c04602e3",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.024_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "ca9a2f465268eb9d4c5cb2bcebb8f543",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_0_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "fdb7ef987402608dbc54f44b619b281c",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_10_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "548382129f9e24d003c94b9d1ff03d07",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_11_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "fe9af7cf6acea473368d4fb62afd67d0",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_12_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "91a62bc77f92b7d4542861d1d4c7fbb9",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_13_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "343d72da2041ff61c57498ef8f691342",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_14_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "8e822ebe111e9b682db992e90a3dd421",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_15_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "6bc1cb84fed2ebea1e20726c333829cb",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_16_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "d2ffd8d27466db9a830334168f0933f2",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_17_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "5c9f88375cf0d9e4789e6c6b1a60734f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_18_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "c8149f06706a927afb48b65d3a2fe119",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_18_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "3b4374c710e54dc8534150fcf6ae7873",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_19_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "e9070b535a2e0c3012e63398dc554798",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_1_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "2fa68839191b9359a1767ab20b52f1bb",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_20_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "064b878ad81554b8e07a5d5fc6c2cc67",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_21_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "3f76f6f055adc052cc1805adea9085bd",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_22_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "316d2a9d05ec56c9fc8563c9b078e686",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_23_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "0c247143b91640b400714072e9157c0f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_24_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "5baf1a6d1c3125fbb07037aab3e2eb68",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_24_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "8380d7402e2ecfb8442b42a9b20c16b8",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_25_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "dfe2895e1d12f30f7d9554ba147a3eae",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_26_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "f153ab4eca07bceeaa1088c0dc0c652a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_27_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "f0034cbcfdda3dc405de4f7fe271b2c6",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_27_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "78dbd71aa070e0ca86ee9a8d15b1143a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_28_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "ccaedc0a4eba6b67fe3ab83302bc1417",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_29_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "018d596a220604a594cd0fd69f7e87f1",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_2_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "059ab594475b338f9d5bad37c548074d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_30_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "8c49cb47ddd0888be15617c9e6c990c5",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_31_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "09331dfefd9056ca78e57b8a33c6cc4e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_32_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "7e75c0e35c6915ef3ff069c0698f8b4b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_33_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "dc4464ab39ad4be689fd135e84cd071c",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_34_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "d4220ce14c37a9a67d06fab4932dab79",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_35_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "5a951d0aad494a0584516a4926eb9451",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_36_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "5f0e4b3ca11fe7301f5fedae83c14cb6",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_39_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "144f2ccb46548f1a8c180df24f4acdc4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_3_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "164ae623a0796a8b4c1c629d925e6576",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_40_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "85fa9a240ae54d6b61b4b5140e7a5c7d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_4_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "1f60e118c24afa38a7a5324661cf9b1b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_4_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "b35299d3e99267154505735d894ed51e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_5_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "7ca558555f7122727ed06e962e6b3bda",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_6_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "4e066d93f54588fe724587fed0e20f95",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_7_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "8846216e98f2c57de8c6bb33fc38a5ba",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_8_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "92ed78d0989371c66b6451ea81f92870",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_9_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "d0faa9c1663c816a1697721241e1009d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_9_emissive.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "cbc546984ead36d7c006e1c607980ef4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material.074_baseColor.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "ff9fe4dfcc6d544165602e0eb2c6fda5",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "fd6f9bce75d3515756debcb5ca12a898",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Material_metallicRoughness.png": {
+    "mtime": 1779170829.0,
+    "ast_hash": "82a688151ea06c3ede3706efa564ae47",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\desktop_pc\\textures\\Tasten_2_baseColor.jpeg": {
+    "mtime": 1779170829.0,
+    "ast_hash": "cc4c89c56df059f0de2e70540fc8077f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4e2d\u5929\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.4626763,
+    "ast_hash": "134269ef08fecd526a6d298db97738e9",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4e2d\u88d5\u65b0\u85e5_1.jpg": {
+    "mtime": 1780373926.4681816,
+    "ast_hash": "2db1ad0236aa95d8cebba426fc7a42c5",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4e2d\u88d5\u65b0\u85e5_2.jpg": {
+    "mtime": 1780373926.4738479,
+    "ast_hash": "f3a6b97d77359003dd92bd02dcf46cfe",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4e9e\u679c\u751f\u91ab_1.jpg": {
+    "mtime": 1780373926.709921,
+    "ast_hash": "8c23b6405f017736c0f7fd694b77642c",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4e9e\u679c\u751f\u91ab_2.png": {
+    "mtime": 1780373926.715062,
+    "ast_hash": "e571b89234d3bee75caf86731a657a25",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4e9e\u679c\u751f\u91ab_3.png": {
+    "mtime": 1780373926.7206643,
+    "ast_hash": "52a722f373307830635079242bb1e7d3",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4e9e\u8afe\u6cd5_1.jpg": {
+    "mtime": 1780373926.4788475,
+    "ast_hash": "8b305f567a9708b22b2ae399bcb152cf",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4e9e\u8afe\u6cd5_2.jpg": {
+    "mtime": 1780373926.4850078,
+    "ast_hash": "ec429a1be649ef687c5b766312ef60d7",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4fdd\u745e\u85e5\u696d_1.jpg": {
+    "mtime": 1780373926.359612,
+    "ast_hash": "e00a3420a8be14936c15ea272ae467d1",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4fdd\u745e\u85e5\u696d_2.jpg": {
+    "mtime": 1780373926.3657336,
+    "ast_hash": "dd098f0ae4f652845ad5b898d1cbb812",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u4fdd\u745e\u85e5\u696d_3.png": {
+    "mtime": 1780373926.371245,
+    "ast_hash": "8586dd0993ade15c97c610ce4a2aa345",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5149\u9f0e\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.618112,
+    "ast_hash": "1bc892a9726915e6c38c0084bc7aa22e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5149\u9f0e\u751f\u6280_2.png": {
+    "mtime": 1780373926.6232502,
+    "ast_hash": "cab8f103508c126b24bbf13aa5d7ad62",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5149\u9f0e\u751f\u6280_3.jpg": {
+    "mtime": 1780373926.6288261,
+    "ast_hash": "8ee4b23650c0dbd152926b45d86b7c06",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5168\u798f\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.4900076,
+    "ast_hash": "208460a0231e66324128e04953685781",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5168\u798f\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.495116,
+    "ast_hash": "055811c8060fa41e25c3872cd722e259",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5168\u798f\u751f\u6280_3.jpg": {
+    "mtime": 1780373926.5001147,
+    "ast_hash": "66f56fd3b4f969478b9a5c378b60622f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5275\u6e90\u751f\u6280_1_\u6539\u8a0a\u9023\u57fa\u56e0\u6578\u4f4dGGA.jpg": {
+    "mtime": 1780373926.2710078,
+    "ast_hash": "daed3932dd7615021b5231b2272cbff3",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5275\u6e90\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.276135,
+    "ast_hash": "3566d88120bc688925ba0bbe5d9d778e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5275\u76ca\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.633986,
+    "ast_hash": "acfb3caa036e812b629052a34411c331",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5275\u76ca\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.6399915,
+    "ast_hash": "548c8a1f28f56da8c634ce94835ff8bd",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u53f0\u5b89\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.7258146,
+    "ast_hash": "e4a332a35b13b80fec344c9dcc79401a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u53f0\u5eb7\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.3759422,
+    "ast_hash": "490231382fdb8ab01d9ebc51b3d2baac",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u53f0\u5eb7\u751f\u6280_2.png": {
+    "mtime": 1780373926.3820963,
+    "ast_hash": "db16c52f0f3117de13e9bc20ce7ba78b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u53f0\u7063\u751f\u7269\u91ab\u85e5\u88fd\u9020_1.png": {
+    "mtime": 1780373926.3880932,
+    "ast_hash": "4af144ac0ac23d31f8cd16e93b01b86d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u53f0\u7063\u751f\u7269\u91ab\u85e5\u88fd\u9020_2.jpg": {
+    "mtime": 1780373926.3962061,
+    "ast_hash": "7ab6b5a48f2d9f91b3aeec5b9f2dc4f4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u53f0\u7063\u795e\u9686_1.jpg": {
+    "mtime": 1780373926.4013119,
+    "ast_hash": "34aef0b1fc1a03205501d082ad0bb443",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u53f0\u7063\u795e\u9686_2.jpg": {
+    "mtime": 1780373926.407322,
+    "ast_hash": "222e05b44986eee70c23ea718ff26fbb",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u53f0\u7063\u795e\u9686_3.jpg": {
+    "mtime": 1780373926.413434,
+    "ast_hash": "40f8f78c1b686f6a7250feaede639510",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u548c\u8a0a\u751f\u6280_1.png": {
+    "mtime": 1780373926.730811,
+    "ast_hash": "a27ac152149d4563a15bccaf380a3ec1",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u548c\u8a0a\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.7369463,
+    "ast_hash": "651c7f9bf1b6e87b121953cf039736aa",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u559c\u5eb7\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.4189458,
+    "ast_hash": "8f5f4427c1ea71fd09e588177dfc50fd",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u559c\u5eb7\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.4256113,
+    "ast_hash": "7363e00122e816f6b38c2bd3cd9ea3a2",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u570b\u5149\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.6459875,
+    "ast_hash": "a9c3a8fb980e5e43d5e1d1abe9ac19b4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u570b\u5149\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.6509867,
+    "ast_hash": "24a211db6a4b0ddd98a645d800c942b0",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u570b\u5149\u751f\u6280_3.jpg": {
+    "mtime": 1780373926.6571236,
+    "ast_hash": "f7dd7b3d6825f062f96ae1b49af608b1",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u570b\u9f0e\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.663292,
+    "ast_hash": "fa61b4af954a5f152ced4ff23df5a270",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u570b\u9f0e\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.6698,
+    "ast_hash": "e3442c33006841a7f1d46b855f4810b1",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u57fa\u4e9e\u751f\u6280-\u57fa\u4e9e\u751f\u7269_1.png": {
+    "mtime": 1780373926.7430668,
+    "ast_hash": "731410ea7373f0b0301f1bc01d8bdb0d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u57fa\u4e9e\u751f\u6280-\u57fa\u4e9e\u751f\u7269_2.jpg": {
+    "mtime": 1780373926.790685,
+    "ast_hash": "e3c88f50fb7277cd51cdf3c0975a50a0",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u57fa\u4e9e\u751f\u6280-\u57fa\u4e9e\u751f\u7269_3.jpg": {
+    "mtime": 1780373926.7967992,
+    "ast_hash": "2989695db034d8051bfc050430182c42",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u57fa\u9f8d\u7c73\u514b\u65af.jpg": {
+    "mtime": 1780373926.2824833,
+    "ast_hash": "e30cab8421c025f9d8d1739153d5cf37",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u592a\u666f\u751f\u6280_1.png": {
+    "mtime": 1780373926.5062444,
+    "ast_hash": "b0449e17c896699b8f4cfc8d413e6dc5",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u592a\u666f\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.5123596,
+    "ast_hash": "1eccd7280d1de94e0ce657d4a464a7ab",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5b89\u7f8e\u5f97_1.png": {
+    "mtime": 1780373926.430612,
+    "ast_hash": "33e9be4a2cc7ce91c5286f4b8fbda93f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5b89\u7f8e\u5f97_2.jpg": {
+    "mtime": 1780373926.4357622,
+    "ast_hash": "333b9c426137256f7d05baf0b47a5e3f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u5b89\u7f8e\u5f97_3.jpg": {
+    "mtime": 1780373926.4428856,
+    "ast_hash": "08259c7b41417bb5d67b84be700d336a",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u65ed\u5bcc\u88fd\u85e5_1.jpg": {
+    "mtime": 1780373926.517862,
+    "ast_hash": "0475e5406fd86c24f46f0da3d4095b21",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u65ed\u5bcc\u88fd\u85e5_2.webp": {
+    "mtime": 1780373926.5230293,
+    "ast_hash": "a056f58e1fe736f8d902a177516211cf",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u666e\u751f_1.png": {
+    "mtime": 1780373926.6755195,
+    "ast_hash": "07a0ed94501d3f92cfb79d3a50e5190b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u666e\u751f_2.png": {
+    "mtime": 1780373926.6805162,
+    "ast_hash": "4e30020bf15da85f8ccc9de5499b50e7",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u666e\u751f_3.jpg": {
+    "mtime": 1780373926.6856592,
+    "ast_hash": "6f8e149604fad03f7732c679ad2e772b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u6771\u6d0b\u85e5\u54c1_1.jpg": {
+    "mtime": 1780373926.5321634,
+    "ast_hash": "e26d3649a2f311c7a73e1a8587d2988f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u6771\u6d0b\u85e5\u54c1_2.webP": {
+    "mtime": 1780373926.5372348,
+    "ast_hash": "4cad6fb061c0604339015df43d3ac760",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u6c38\u6615\u751f\u7269_1.jpg": {
+    "mtime": 1780373926.4488847,
+    "ast_hash": "58227de4e3e1e199e2e051a28f2f2e69",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u6c38\u6615\u751f\u7269_2.jpg": {
+    "mtime": 1780373926.4539995,
+    "ast_hash": "58f50d9b1a1195225789d99448bc3b49",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u6d69\u9f0e\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.54624,
+    "ast_hash": "812c477dcd8c845061c828f67a23ad8d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u6d69\u9f0e\u751f\u6280_2.webP": {
+    "mtime": 1780373926.550832,
+    "ast_hash": "587ff792d47eb1b1bd27f81d887e8951",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u6f22\u5eb7\u751f\u91ab_1.png": {
+    "mtime": 1780373926.557003,
+    "ast_hash": "65c97cbc62583a6ca807e569c5bb86a0",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u6f22\u5eb7\u751f\u91ab_2.jpg": {
+    "mtime": 1780373926.563119,
+    "ast_hash": "58988a6d35e51902dc6d2f3b68640662",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u7acb\u666f\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.6917782,
+    "ast_hash": "b8bcbc66f5823a25e412d9a267885fed",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u7cbe\u62d3\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.290499,
+    "ast_hash": "38c9abef8b9229fa5ea066bf70b5e8a4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u7cbe\u62d3\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.2966352,
+    "ast_hash": "89553bb44b23a6f6bfe6bb3ae8ddf93c",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u7dad\u81f4\u751f\u91ab_1.jpg": {
+    "mtime": 1780373926.301755,
+    "ast_hash": "54253164a4a5f512ac6b383af8717af6",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u7dad\u81f4\u751f\u91ab_2.jpg": {
+    "mtime": 1780373926.307881,
+    "ast_hash": "e1362b91cc336a2693c0e475d862f5f7",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u7f8e\u6642\u5316\u5b78-1.jpg": {
+    "mtime": 1780373926.5692856,
+    "ast_hash": "edb2fac91caee82d9fd7d3d5a4c8752b",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u7f8e\u6642\u5316\u5b78_2.jpg": {
+    "mtime": 1780373926.5744212,
+    "ast_hash": "8266b8a12ca6842e7e49f4a0530d4e4f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u83ef\u806f\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.3149989,
+    "ast_hash": "71e1d5a0e08ab1313ec375387627b3ad",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u83ef\u806f\u751f\u6280_2.jpg": {
+    "mtime": 1780373926.320508,
+    "ast_hash": "56c54fb959427882a65bc325cf13b3c4",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u85e5\u83ef\u91ab\u85e5_1.webp": {
+    "mtime": 1780373926.5794196,
+    "ast_hash": "bd7e9f1597ff09c50078408e13e63c27",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u85e5\u83ef\u91ab\u85e5_2.jpg": {
+    "mtime": 1780373926.5851555,
+    "ast_hash": "97c1c9e0dcfe4ad429e43d73d81955a0",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u884c\u52d5\u57fa\u56e0_1.jpg": {
+    "mtime": 1780373926.3276432,
+    "ast_hash": "90d366d7ad6f5f1fe9be1828782f29d7",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u884c\u52d5\u57fa\u56e0_2.png": {
+    "mtime": 1780373926.337347,
+    "ast_hash": "e41c64bcfc79c9010b95ed8580820c1e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u8a0a\u806f\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.802936,
+    "ast_hash": "a32a57f5870becd97c9baf7d2c030c3e",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u8a0a\u806f\u751f\u6280_2.png": {
+    "mtime": 1780373926.8079412,
+    "ast_hash": "59532e230883257482f3501539a606a3",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u9038\u9054\u751f\u6280_1.jpg": {
+    "mtime": 1780373926.59129,
+    "ast_hash": "cc4897a91e11b9595a84ef81ac4b9b88",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u9038\u9054\u751f\u6280_2.png": {
+    "mtime": 1780373926.5982907,
+    "ast_hash": "2be93fd4ffa23510ed4cdb050b8f178d",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u91a3\u57fa\u751f\u91ab_1.webp": {
+    "mtime": 1780373926.6034315,
+    "ast_hash": "b48635050eb648da1033d4b659d4aed1",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u91a3\u57fa\u751f\u91ab_2.jpg": {
+    "mtime": 1780373926.6094315,
+    "ast_hash": "08932b83ea142ccf0642c30e67212474",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u9ad8\u7aef\u75ab\u82d7_1.webp": {
+    "mtime": 1780373926.6967828,
+    "ast_hash": "6fe5e9d005e5c0b2b6688d5f0609dc35",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u9ad8\u7aef\u75ab\u82d7_2.webp": {
+    "mtime": 1780373926.7007768,
+    "ast_hash": "673d08338b65834ae62cab318b684983",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u9e97\u5bf6\u751f\u91ab_1.jpg": {
+    "mtime": 1780373926.3434606,
+    "ast_hash": "55d7bd531de88257dfb152b938b4c50f",
+    "semantic_hash": ""
+  },
+  "C:\\Users\\poo\\Documents\\School\\web final\\frontend\\0511\\public\\images\\companies\\\u9e97\u5bf6\u751f\u91ab_2.jpg": {
+    "mtime": 1780373926.3494592,
+    "ast_hash": "baf9f4ec3acf19a30a3499fbca1561c9",
     "semantic_hash": ""
   }
 }

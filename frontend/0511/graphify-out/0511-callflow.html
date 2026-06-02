@@ -60,12 +60,13 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>0511 — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 209 nodes, 241 edges, 24 communities. Commit: cc02eac</p>
+<p class="subtitle">Generated from graphify knowledge graph: 218 nodes, 247 edges, 27 communities. Commit: caadaa9</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
     <a href="#analysis-clustering">Analysis &amp; Clustering</a>
     <a href="#cli-skills">CLI &amp; Skill Installers</a>
+    <a href="#ingest-cache-update">Ingestion &amp; Updates</a>
     <a href="#serve-api">Serving API</a>
     <a href="#community-4">Community 4</a>
     <a href="#community-5">Community 5</a>
@@ -77,7 +78,6 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     <a href="#community-12">Community 12</a>
     <a href="#community-13">Community 13</a>
     <a href="#community-14">Community 14</a>
-    <a href="#community-23">Community 23</a>
     <a href="#other">Other</a>
 </div>
 
@@ -92,7 +92,9 @@ flowchart LR
     class ANALYSIS_CLUSTERING_C79796DA module;
     CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>44 nodes</small>")
     class CLI_SKILLS_9964CBB8 module;
-    SERVE_API_35EC8E86("Serving API<br/><small>41 nodes</small>")
+    INGEST_CACHE_UPDATE_FF457338("Ingestion &amp; Updates<br/><small>1 nodes</small>")
+    class INGEST_CACHE_UPDATE_FF457338 module;
+    SERVE_API_35EC8E86("Serving API<br/><small>42 nodes</small>")
     class SERVE_API_35EC8E86 module;
     COMMUNITY_4_AC2DC2A9("Community 4<br/><small>14 nodes</small>")
     class COMMUNITY_4_AC2DC2A9 module;
@@ -112,11 +114,9 @@ flowchart LR
     class COMMUNITY_12_82F13F05 module;
     COMMUNITY_13_E329587C("Community 13<br/><small>6 nodes</small>")
     class COMMUNITY_13_E329587C module;
-    COMMUNITY_14_21BC55C3("Community 14<br/><small>4 nodes</small>")
+    COMMUNITY_14_21BC55C3("Community 14<br/><small>5 nodes</small>")
     class COMMUNITY_14_21BC55C3 module;
-    COMMUNITY_23_58D9DE5D("Community 23<br/><small>4 nodes</small>")
-    class COMMUNITY_23_58D9DE5D module;
-    OTHER_D0941E68("Other<br/><small>11 nodes</small>")
+    OTHER_D0941E68("Other<br/><small>21 nodes</small>")
     class OTHER_D0941E68 module;
     SERVE_API_35EC8E86 -->|calls x2| ANALYSIS_CLUSTERING_C79796DA
     ANALYSIS_CLUSTERING_C79796DA -->|contains| SERVE_API_35EC8E86
@@ -136,24 +136,24 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Analysis &amp; Clustering</td><td>17</td><td><code>3</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>44</td><td><code>0, 6, 11</code></td></tr><tr><td>Serving API</td><td>41</td><td><code>1, 2, 17, 18</code></td></tr><tr><td>Community 4</td><td>14</td><td><code>4</code></td></tr><tr><td>Community 5</td><td>12</td><td><code>5</code></td></tr><tr><td>Community 7</td><td>12</td><td><code>7</code></td></tr><tr><td>Community 8</td><td>11</td><td><code>8</code></td></tr><tr><td>Community 10</td><td>9</td><td><code>10</code></td></tr><tr><td>Community 9</td><td>9</td><td><code>9</code></td></tr><tr><td>Community 22</td><td>8</td><td><code>22</code></td></tr><tr><td>Community 12</td><td>7</td><td><code>12</code></td></tr><tr><td>Community 13</td><td>6</td><td><code>13</code></td></tr><tr><td>Community 14</td><td>4</td><td><code>14</code></td></tr><tr><td>Community 23</td><td>4</td><td><code>23</code></td></tr><tr><td>Other</td><td>11</td><td><code>15, 16, 20, 21, 19</code></td></tr>
+      <tr><td>Analysis &amp; Clustering</td><td>17</td><td><code>3</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>44</td><td><code>0, 6, 11</code></td></tr><tr><td>Ingestion &amp; Updates</td><td>1</td><td><code>26</code></td></tr><tr><td>Serving API</td><td>42</td><td><code>1, 2, 17, 18, 24</code></td></tr><tr><td>Community 4</td><td>14</td><td><code>4</code></td></tr><tr><td>Community 5</td><td>12</td><td><code>5</code></td></tr><tr><td>Community 7</td><td>12</td><td><code>7</code></td></tr><tr><td>Community 8</td><td>11</td><td><code>8</code></td></tr><tr><td>Community 10</td><td>9</td><td><code>10</code></td></tr><tr><td>Community 9</td><td>9</td><td><code>9</code></td></tr><tr><td>Community 22</td><td>8</td><td><code>22</code></td></tr><tr><td>Community 12</td><td>7</td><td><code>12</code></td></tr><tr><td>Community 13</td><td>6</td><td><code>13</code></td></tr><tr><td>Community 14</td><td>5</td><td><code>14</code></td></tr><tr><td>Other</td><td>21</td><td><code>15, 16, 23, 20, 21, 19, 25</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">CLI &amp; Skill Installers -&gt; Analysis &amp; Clustering -&gt; Serving API -&gt; Community 4 -&gt; Community 5 -&gt; Community 7 -&gt; Community 8</div>
+    <div class="arrow-chain">CLI &amp; Skill Installers -&gt; Analysis &amp; Clustering -&gt; Serving API -&gt; Ingestion &amp; Updates -&gt; Community 4 -&gt; Community 5 -&gt; Community 7</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>209 nodes · 241 edges · 24 communities (9 shown, 15 thin omitted)</li>
+      <li>218 nodes · 247 edges · 27 communities (12 shown, 15 thin omitted)</li>
       <li>Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS</li>
       <li>Token cost: 0 input · 0 output</li>
       <li>1. `CompanyModel` - 13 edges</li>
-      <li>2. `DesignSystemGenerator` - 11 edges</li>
-      <li>3. `CompanyView` - 11 edges</li>
+      <li>2. `CompanyView` - 11 edges</li>
+      <li>3. `UiView` - 11 edges</li>
     </ul>
   </div>
 </div>
@@ -721,14 +721,70 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 4. Serving API ====== -->
-<h2 id="serve-api">4. Serving API</h2>
-<p>Serving API groups implementation around gemini, skills, pro, max, mostly in ui-ux-pro-max/scripts/core.py, ui-ux-pro-max/scripts/design_system.py, ui-ux-pro-max/scripts/search.py. This section covers 41 nodes and 52 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 4. Ingestion & Updates ====== -->
+<h2 id="ingest-cache-update">4. Ingestion &amp; Updates</h2>
+<p>Ingestion &amp; Updates groups implementation around update, database, imagesphp, mostly in update_database_images.php. This section covers 1 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Serving API (41 nodes, 52 edges)
+    %% Section: Ingestion &amp; Updates (1 nodes, 0 edges)
+    update_database_images_php_f429ad85("update_database_images.php")
+    class update_database_images_php_f429ad85 module;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>update_database_images.php</code><br><small style="color:var(--muted)">update_database_images.php</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>update_database_images.php node in update_database_images.php.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>update_database_images.php</code></td><td>1 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: No high-confidence call edges detected. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 5. Serving API ====== -->
+<h2 id="serve-api">5. Serving API</h2>
+<p>Serving API groups implementation around gemini, skills, pro, max, mostly in ui-ux-pro-max/scripts/core.py, ui-ux-pro-max/scripts/design_system.py, ui-ux-pro-max/scripts/search.py. This section covers 42 nodes and 52 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Serving API (42 nodes, 52 edges)
     subgraph serve_api_ui_ux_pro_max_scripts_core_py_3c5dc460["ui-ux-pro-max/scripts/core.py"]
         scripts_core_bm25_afe904c3("BM25<br/><small>ui-ux-pro-max/scripts/core.py</small>")
         scripts_core_bm25_tokenize_ef0a1bee("tokenize()<br/><small>ui-ux-pro-max/scripts/core.py</small>")
@@ -773,7 +829,7 @@ flowchart LR
     scripts_design_system_designsystemgenerator_64b229c1 -->|method| scripts_design_system_designsystemgenerator_extr_07dc6aac
     scripts_design_system_designsystemgenerator_init_0e97438c -->|calls| scripts_design_system_designsystemgenerator_load_88d91230
     scripts_design_system_designsystemgenerator_find_b0713406 -->|calls| scripts_design_system_designsystemgenerator_appl_305162e4
-    %% Omitted for readability: 23 nodes, 0 edges
+    %% Omitted for readability: 24 nodes, 0 edges
     class scripts_core_bm25_afe904c3 klass;
     class scripts_core_bm25_tokenize_ef0a1bee function;
     class scripts_core_detect_domain_68f0ecac function;
@@ -1063,6 +1119,7 @@ flowchart LR
       <tr><td><code>ui-ux-pro-max/scripts/core.py</code></td><td>20 nodes</td></tr>
 <tr><td><code>ui-ux-pro-max/scripts/design_system.py</code></td><td>17 nodes</td></tr>
 <tr><td><code>ui-ux-pro-max/scripts/search.py</code></td><td>3 nodes</td></tr>
+<tr><td><code>frontend/0511/api.php</code></td><td>1 nodes</td></tr>
 <tr><td><code>api.php</code></td><td>1 nodes</td></tr>
     </table>
   </div>
@@ -1073,8 +1130,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 5. Community 4 ====== -->
-<h2 id="community-4">5. Community 4</h2>
+<!-- ====== 6. Community 4 ====== -->
+<h2 id="community-4">6. Community 4</h2>
 <p>Community 4 groups implementation around companymodeljs, models, companymodel, constructor, mostly in js/models/CompanyModel.js. This section covers 14 nodes and 16 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -1274,8 +1331,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 6. Community 5 ====== -->
-<h2 id="community-5">6. Community 5</h2>
+<!-- ====== 7. Community 5 ====== -->
+<h2 id="community-5">7. Community 5</h2>
 <p>Community 5 groups implementation around companyviewjs, views, companyview, constructor, mostly in js/views/CompanyView.js. This section covers 12 nodes and 15 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -1454,8 +1511,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 7. Community 7 ====== -->
-<h2 id="community-7">7. Community 7</h2>
+<!-- ====== 8. Community 7 ====== -->
+<h2 id="community-7">8. Community 7</h2>
 <p>Community 7 groups implementation around uiviewjs, views, uiview, constructor, mostly in js/views/UiView.js. This section covers 12 nodes and 18 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -1637,8 +1694,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 8. Community 8 ====== -->
-<h2 id="community-8">8. Community 8</h2>
+<!-- ====== 9. Community 8 ====== -->
+<h2 id="community-8">9. Community 8</h2>
 <p>Community 8 groups implementation around threeviewjs, views, threeview, constructor, mostly in js/views/ThreeView.js. This section covers 11 nodes and 15 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -1807,8 +1864,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 9. Community 10 ====== -->
-<h2 id="community-10">9. Community 10</h2>
+<!-- ====== 10. Community 10 ====== -->
+<h2 id="community-10">10. Community 10</h2>
 <p>Community 10 groups implementation around appjs, model, companyview, threeview, mostly in js/app.js. This section covers 9 nodes and 8 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -1951,8 +2008,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 10. Community 9 ====== -->
-<h2 id="community-9">10. Community 9</h2>
+<!-- ====== 11. Community 9 ====== -->
+<h2 id="community-9">11. Community 9</h2>
 <p>Community 9 groups implementation around hudviewjs, views, hudview, constructor, mostly in js/views/HudView.js. This section covers 9 nodes and 11 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2097,8 +2154,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 11. Community 22 ====== -->
-<h2 id="community-22">11. Community 22</h2>
+<!-- ====== 12. Community 22 ====== -->
+<h2 id="community-22">12. Community 22</h2>
 <p>Community 22 groups implementation around dockingviewjs, views, dockingview, constructor, mostly in js/views/DockingView.js. This section covers 8 nodes and 10 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2232,8 +2289,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 12. Community 12 ====== -->
-<h2 id="community-12">12. Community 12</h2>
+<!-- ====== 13. Community 12 ====== -->
+<h2 id="community-12">13. Community 12</h2>
 <p>Community 12 groups implementation around companycontrollerjs, controllers, companycontroller, constructor, mostly in js/controllers/CompanyController.js. This section covers 7 nodes and 8 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2355,8 +2412,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 13. Community 13 ====== -->
-<h2 id="community-13">13. Community 13</h2>
+<!-- ====== 14. Community 13 ====== -->
+<h2 id="community-13">14. Community 13</h2>
 <p>Community 13 groups implementation around dnaviewjs, views, dnaview, constructor, mostly in js/views/DnaView.js. This section covers 6 nodes and 7 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2467,23 +2524,27 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 14. Community 14 ====== -->
-<h2 id="community-14">14. Community 14</h2>
-<p>Community 14 groups implementation around companyphp, models, company, construct, mostly in models/Company.php. This section covers 4 nodes and 3 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 15. Community 14 ====== -->
+<h2 id="community-14">15. Community 14</h2>
+<p>Community 14 groups implementation around companyphp, models, users, poo, mostly in 0511/models/Company.php, models/Company.php. This section covers 5 nodes and 4 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Community 14 (4 nodes, 3 edges)
-    models_company_company_9dcb4389("Company<br/><small>models/Company.php</small>")
-    models_company_company_construct_c8882ca2("__construct()<br/><small>models/Company.php</small>")
-    models_company_company_search_ce0dfad9("search()<br/><small>models/Company.php</small>")
+    %% Section: Community 14 (5 nodes, 4 edges)
+    subgraph community_14_0511_models_Company_php_3594682d["0511/models/Company.php"]
+        models_company_company_9dcb4389("Company<br/><small>0511/models/Company.php</small>")
+        models_company_company_construct_c8882ca2("__construct()<br/><small>0511/models/Company.php</small>")
+        models_company_company_search_ce0dfad9("search()<br/><small>0511/models/Company.php</small>")
+        c_users_poo_desktop_web_final_frontend_0511_mode_be4c4c00("Company.php")
+    end
     models_company_php_199c55e7("Company.php")
     models_company_company_9dcb4389 -->|method| models_company_company_construct_c8882ca2
     models_company_company_9dcb4389 -->|method| models_company_company_search_ce0dfad9
     class models_company_company_9dcb4389 klass;
     class models_company_company_construct_c8882ca2 function;
     class models_company_company_search_ce0dfad9 function;
+    class c_users_poo_desktop_web_final_frontend_0511_mode_be4c4c00 klass;
     class models_company_php_199c55e7 klass;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
@@ -2508,35 +2569,43 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
+  <td><code>Company.php</code><br><small style="color:var(--muted)">0511/models/Company.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Company.php node in 0511/models/Company.php.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Company</code><br><small style="color:var(--muted)">0511/models/Company.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>__construct()</code><br><small style="color:var(--muted)">0511/models/Company.php</small><br><code>search()</code><br><small style="color:var(--muted)">0511/models/Company.php</small></td>
+  <td>Company node in 0511/models/Company.php.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.__construct()</code><br><small style="color:var(--muted)">0511/models/Company.php</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Company</code><br><small style="color:var(--muted)">0511/models/Company.php</small></td>
+  <td>No direct outbound edge</td>
+  <td>.__construct() node in 0511/models/Company.php.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.search()</code><br><small style="color:var(--muted)">0511/models/Company.php</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Company</code><br><small style="color:var(--muted)">0511/models/Company.php</small></td>
+  <td>No direct outbound edge</td>
+  <td>.search() node in 0511/models/Company.php.</td>
+</tr>
+<tr>
+  <td>5</td>
   <td><code>Company.php</code><br><small style="color:var(--muted)">models/Company.php</small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>Company.php node in models/Company.php.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>Company</code><br><small style="color:var(--muted)">models/Company.php</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>__construct()</code><br><small style="color:var(--muted)">models/Company.php</small><br><code>search()</code><br><small style="color:var(--muted)">models/Company.php</small></td>
-  <td>Company node in models/Company.php.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>.__construct()</code><br><small style="color:var(--muted)">models/Company.php</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>Company</code><br><small style="color:var(--muted)">models/Company.php</small></td>
-  <td>No direct outbound edge</td>
-  <td>.__construct() node in models/Company.php.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>.search()</code><br><small style="color:var(--muted)">models/Company.php</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>Company</code><br><small style="color:var(--muted)">models/Company.php</small></td>
-  <td>No direct outbound edge</td>
-  <td>.search() node in models/Company.php.</td>
 </tr>
 </table>
 
@@ -2545,35 +2614,75 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>models/Company.php</code></td><td>4 nodes</td></tr>
+      <tr><td><code>0511/models/Company.php</code></td><td>4 nodes</td></tr>
+<tr><td><code>models/Company.php</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: method x2, contains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x2, method x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
-<!-- ====== 15. Community 23 ====== -->
-<h2 id="community-23">15. Community 23</h2>
-<p>Community 23 groups implementation around easter, eggjs, trigger, footer, mostly in js/easter-egg.js. This section covers 4 nodes and 3 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<!-- ====== 16. Other ====== -->
+<h2 id="other">16. Other</h2>
+<p>Other groups implementation around users, poo, desktop, web, mostly in js/easter-egg.js, 0511/controllers/CompanyController.php, 0511/models/Database.php. This section covers 21 nodes and 14 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Community 23 (4 nodes, 3 edges)
-    js_easter_egg_js_a84e8b1c("easter-egg.js")
-    js_easter_egg_trigger_bbd6956f("trigger<br/><small>js/easter-egg.js</small>")
-    js_easter_egg_footer_339cc228("footer<br/><small>js/easter-egg.js</small>")
-    js_easter_egg_triggereasteregg_8da39b98("triggerEasterEgg()<br/><small>js/easter-egg.js</small>")
-    js_easter_egg_js_a84e8b1c -->|contains| js_easter_egg_trigger_bbd6956f
-    js_easter_egg_js_a84e8b1c -->|contains| js_easter_egg_footer_339cc228
-    js_easter_egg_js_a84e8b1c -->|contains| js_easter_egg_triggereasteregg_8da39b98
+    %% Section: Other (21 nodes, 14 edges)
+    subgraph other_js_easter_egg_js_7780811c["js/easter-egg.js"]
+        js_easter_egg_js_a84e8b1c("easter-egg.js")
+        js_easter_egg_footer_339cc228("footer<br/><small>js/easter-egg.js</small>")
+        js_easter_egg_trigger_bbd6956f("trigger<br/><small>js/easter-egg.js</small>")
+        js_easter_egg_triggereasteregg_8da39b98("triggerEasterEgg()<br/><small>js/easter-egg.js</small>")
+    end
+    subgraph other_agents_rules_graphify_md_46085eba[".agents/rules/graphify.md"]
+        rules_graphify_graphify_492e01fa("graphify<br/><small>.agents/rules/graphify.md</small>")
+        c_users_poo_desktop_web_final_frontend_0511_agen_b3ca854f("graphify.md")
+        agents_rules_graphify_md_4b23c981("graphify.md")
+    end
+    subgraph other_0511_controllers_CompanyController_php_6ea80d70["0511/controllers/CompanyController.php"]
+        c_users_poo_desktop_web_final_frontend_0511_cont_3ef21dcd("CompanyController<br/><small>0511/controllers/CompanyController.php</small>")
+        controllers_companycontroller_companycontroller_301860f7("handleRequest()<br/><small>0511/controllers/CompanyController.php</small>")
+        c_users_poo_desktop_web_final_frontend_0511_cont_9cae4e2f("CompanyController.php")
+    end
+    subgraph other_0511_models_Database_php_d2c1f9ed["0511/models/Database.php"]
+        models_database_database_78777633("Database<br/><small>0511/models/Database.php</small>")
+        models_database_database_getconnection_0eefc265("getConnection()<br/><small>0511/models/Database.php</small>")
+        c_users_poo_desktop_web_final_frontend_0511_mode_a284d174("Database.php")
+    end
+    subgraph other_controllers_CompanyController_php_172776ec["controllers/CompanyController.php"]
+        controllers_companycontroller_php_controllers_co_dcc23dd9("CompanyController<br/><small>controllers/CompanyController.php</small>")
+        controllers_companycontroller_php_d58e3e21("CompanyController.php")
+    end
+    c_users_poo_desktop_web_final_frontend_0511_inde_11d2b33d("index.php")
+    index_php_092111f7("index.php")
+    models_database_php_b5969a74("Database.php")
+    c_users_poo_desktop_web_final_frontend_0511_cont_3ef21dcd -->|method| controllers_companycontroller_companycontroller_301860f7
+    controllers_companycontroller_companycontroller_301860f7 -->|method| controllers_companycontroller_php_controllers_co_dcc23dd9
+    models_database_database_78777633 -->|method| models_database_database_getconnection_0eefc265
+    %% Omitted for readability: 3 nodes, 0 edges
     class js_easter_egg_js_a84e8b1c module;
-    class js_easter_egg_trigger_bbd6956f function;
     class js_easter_egg_footer_339cc228 function;
+    class js_easter_egg_trigger_bbd6956f function;
     class js_easter_egg_triggereasteregg_8da39b98 function;
+    class rules_graphify_graphify_492e01fa concept;
+    class c_users_poo_desktop_web_final_frontend_0511_agen_b3ca854f concept;
+    class agents_rules_graphify_md_4b23c981 concept;
+    class c_users_poo_desktop_web_final_frontend_0511_cont_3ef21dcd klass;
+    class controllers_companycontroller_companycontroller_301860f7 function;
+    class c_users_poo_desktop_web_final_frontend_0511_cont_9cae4e2f klass;
+    class models_database_database_78777633 klass;
+    class models_database_database_getconnection_0eefc265 function;
+    class c_users_poo_desktop_web_final_frontend_0511_mode_a284d174 klass;
+    class controllers_companycontroller_php_controllers_co_dcc23dd9 klass;
+    class controllers_companycontroller_php_d58e3e21 klass;
+    class c_users_poo_desktop_web_final_frontend_0511_inde_11d2b33d module;
+    class index_php_092111f7 module;
+    class models_database_php_b5969a74 klass;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -2597,6 +2706,78 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
+  <td><code>CompanyController.php</code><br><small style="color:var(--muted)">0511/controllers/CompanyController.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CompanyController.php node in 0511/controllers/CompanyController.php.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">0511/controllers/CompanyController.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>handleRequest()</code><br><small style="color:var(--muted)">0511/controllers/CompanyController.php</small></td>
+  <td>CompanyController node in 0511/controllers/CompanyController.php.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.handleRequest()</code><br><small style="color:var(--muted)">0511/controllers/CompanyController.php</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">0511/controllers/CompanyController.php</small></td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
+  <td>.handleRequest() node in 0511/controllers/CompanyController.php.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>CompanyController.php</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>CompanyController.php node in controllers/CompanyController.php.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>CompanyController</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>handleRequest()</code><br><small style="color:var(--muted)">0511/controllers/CompanyController.php</small></td>
+  <td>No direct outbound edge</td>
+  <td>CompanyController node in controllers/CompanyController.php.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>Database.php</code><br><small style="color:var(--muted)">0511/models/Database.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Database.php node in 0511/models/Database.php.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>Database</code><br><small style="color:var(--muted)">0511/models/Database.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>getConnection()</code><br><small style="color:var(--muted)">0511/models/Database.php</small></td>
+  <td>Database node in 0511/models/Database.php.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.getConnection()</code><br><small style="color:var(--muted)">0511/models/Database.php</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>Database</code><br><small style="color:var(--muted)">0511/models/Database.php</small></td>
+  <td>No direct outbound edge</td>
+  <td>.getConnection() node in 0511/models/Database.php.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>Database.php</code><br><small style="color:var(--muted)">models/Database.php</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Database.php node in models/Database.php.</td>
+</tr>
+<tr>
+  <td>10</td>
   <td><code>easter-egg.js</code><br><small style="color:var(--muted)">js/easter-egg.js</small></td>
   <td><span class="tag tag-class">Module</span></td>
   <td>External entry / no inbound edge</td>
@@ -2604,7 +2785,7 @@ flowchart LR
   <td>easter-egg.js node in js/easter-egg.js.</td>
 </tr>
 <tr>
-  <td>2</td>
+  <td>11</td>
   <td><code>trigger</code><br><small style="color:var(--muted)">js/easter-egg.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2612,7 +2793,7 @@ flowchart LR
   <td>trigger node in js/easter-egg.js.</td>
 </tr>
 <tr>
-  <td>3</td>
+  <td>12</td>
   <td><code>footer</code><br><small style="color:var(--muted)">js/easter-egg.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -2620,12 +2801,76 @@ flowchart LR
   <td>footer node in js/easter-egg.js.</td>
 </tr>
 <tr>
-  <td>4</td>
+  <td>13</td>
   <td><code>triggerEasterEgg()</code><br><small style="color:var(--muted)">js/easter-egg.js</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>triggerEasterEgg() node in js/easter-egg.js.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>graphify.md</code><br><small style="color:var(--muted)">.agents/rules/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing graphify.md.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>graphify</code><br><small style="color:var(--muted)">.agents/rules/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing graphify.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>graphify.md</code><br><small style="color:var(--muted)">.agents/rules/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing graphify.md.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>graphify.md</code><br><small style="color:var(--muted)">.agents/workflows/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing graphify.md.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Workflow: graphify</code><br><small style="color:var(--muted)">.agents/workflows/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Workflow: graphify.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>graphify.md</code><br><small style="color:var(--muted)">.agents/workflows/graphify.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing graphify.md.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>index.php</code><br><small style="color:var(--muted)">index.php</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>index.php node in index.php.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>index.php</code><br><small style="color:var(--muted)">frontend/0511/index.php</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>index.php node in frontend/0511/index.php.</td>
 </tr>
 </table>
 
@@ -2635,181 +2880,18 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>js/easter-egg.js</code></td><td>4 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 16. Other ====== -->
-<h2 id="other">16. Other</h2>
-<p>Other groups implementation around graphifymd, companycontrollerphp, databasephp, agents, mostly in controllers/CompanyController.php, models/Database.php, .agents/rules/graphify.md. This section covers 11 nodes and 6 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Other (11 nodes, 6 edges)
-    subgraph other_controllers_CompanyController_php_172776ec["controllers/CompanyController.php"]
-        controllers_companycontroller_php_controllers_co_dcc23dd9("CompanyController<br/><small>controllers/CompanyController.php</small>")
-        controllers_companycontroller_companycontroller_301860f7("handleRequest()<br/><small>controllers/CompanyController.php</small>")
-        controllers_companycontroller_php_d58e3e21("CompanyController.php")
-    end
-    subgraph other_models_Database_php_66925949["models/Database.php"]
-        models_database_database_78777633("Database<br/><small>models/Database.php</small>")
-        models_database_database_getconnection_0eefc265("getConnection()<br/><small>models/Database.php</small>")
-        models_database_php_b5969a74("Database.php")
-    end
-    subgraph other_agents_rules_graphify_md_46085eba[".agents/rules/graphify.md"]
-        rules_graphify_graphify_492e01fa("graphify<br/><small>.agents/rules/graphify.md</small>")
-        agents_rules_graphify_md_4b23c981("graphify.md")
-    end
-    subgraph other_agents_workflows_graphify_md_fa0cc363[".agents/workflows/graphify.md"]
-        workflows_graphify_workflow_graphify_f1045e4e("Workflow: graphify<br/><small>.agents/workflows/graphify.md</small>")
-        agents_workflows_graphify_md_bb08c945("graphify.md")
-    end
-    index_php_092111f7("index.php")
-    controllers_companycontroller_php_controllers_co_dcc23dd9 -->|method| controllers_companycontroller_companycontroller_301860f7
-    models_database_database_78777633 -->|method| models_database_database_getconnection_0eefc265
-    class controllers_companycontroller_php_controllers_co_dcc23dd9 klass;
-    class controllers_companycontroller_companycontroller_301860f7 function;
-    class controllers_companycontroller_php_d58e3e21 klass;
-    class models_database_database_78777633 klass;
-    class models_database_database_getconnection_0eefc265 function;
-    class models_database_php_b5969a74 klass;
-    class rules_graphify_graphify_492e01fa concept;
-    class agents_rules_graphify_md_4b23c981 concept;
-    class workflows_graphify_workflow_graphify_f1045e4e concept;
-    class agents_workflows_graphify_md_bb08c945 concept;
-    class index_php_092111f7 module;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>CompanyController.php</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>CompanyController.php node in controllers/CompanyController.php.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>CompanyController</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>handleRequest()</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
-  <td>CompanyController node in controllers/CompanyController.php.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>.handleRequest()</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>CompanyController</code><br><small style="color:var(--muted)">controllers/CompanyController.php</small></td>
-  <td>No direct outbound edge</td>
-  <td>.handleRequest() node in controllers/CompanyController.php.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>Database.php</code><br><small style="color:var(--muted)">models/Database.php</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Database.php node in models/Database.php.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>Database</code><br><small style="color:var(--muted)">models/Database.php</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>getConnection()</code><br><small style="color:var(--muted)">models/Database.php</small></td>
-  <td>Database node in models/Database.php.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>.getConnection()</code><br><small style="color:var(--muted)">models/Database.php</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>Database</code><br><small style="color:var(--muted)">models/Database.php</small></td>
-  <td>No direct outbound edge</td>
-  <td>.getConnection() node in models/Database.php.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>graphify.md</code><br><small style="color:var(--muted)">.agents/rules/graphify.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing graphify.md.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>graphify</code><br><small style="color:var(--muted)">.agents/rules/graphify.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing graphify.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>graphify.md</code><br><small style="color:var(--muted)">.agents/workflows/graphify.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing graphify.md.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>Workflow: graphify</code><br><small style="color:var(--muted)">.agents/workflows/graphify.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Workflow: graphify.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>index.php</code><br><small style="color:var(--muted)">index.php</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>index.php node in index.php.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>controllers/CompanyController.php</code></td><td>3 nodes</td></tr>
-<tr><td><code>models/Database.php</code></td><td>3 nodes</td></tr>
+<tr><td><code>0511/controllers/CompanyController.php</code></td><td>3 nodes</td></tr>
+<tr><td><code>0511/models/Database.php</code></td><td>3 nodes</td></tr>
 <tr><td><code>.agents/rules/graphify.md</code></td><td>2 nodes</td></tr>
 <tr><td><code>.agents/workflows/graphify.md</code></td><td>2 nodes</td></tr>
-<tr><td><code>index.php</code></td><td>1 nodes</td></tr>
+<tr><td><code>controllers/CompanyController.php</code></td><td>2 nodes</td></tr>
+<tr><td><code>.agents/rules/graphify.md</code></td><td>1 nodes</td></tr>
+<tr><td><code>.agents/workflows/graphify.md</code></td><td>1 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x4, method x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x11, method x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -2820,17 +2902,17 @@ flowchart LR
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>209</td></tr>
-      <tr><td>Edges</td><td>241</td></tr>
+      <tr><td>Nodes</td><td>218</td></tr>
+      <tr><td>Edges</td><td>247</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
-      <tr><td>Communities</td><td>24</td></tr>
+      <tr><td>Communities</td><td>27</td></tr>
       <tr><td>Documented Sections</td><td>15</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>241</td></tr>
+      <tr><td>EXTRACTED</td><td>247</td></tr>
       <tr><td>INFERRED</td><td>0</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
@@ -2839,7 +2921,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>0511 — Architecture Documentation</p>
-  <p>Generated: 2026-05-24 06:27 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-06-02 04:47 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->
